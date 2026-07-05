@@ -1,0 +1,3729 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- ============================================================
+    ╔══════════════════════════════════════════════════════════════╗
+    ║   jahinvegas — GitHub Repository Index                      ║
+    ║   File   : index.html                                       ║
+    ║   Author : jahinvegas                                       ║
+    ║   Build  : Cosmic Build V2.0 — Enhanced & Corrected         ║
+    ╚══════════════════════════════════════════════════════════════╝
+    ============================================================ -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Live GitHub repository index for jahinvegas — paginated, futuristic, cyberpunk-themed dashboard with real-time API integration." />
+    <meta name="keywords" content="jahinvegas, GitHub, repositories, cyberpunk, DOC911, portfolio" />
+    <meta name="author" content="jahinvegas / DOC 911" />
+    <meta name="theme-color" content="#0a0a0a" />
+
+    <title>⬡ jahinvegas — GitHub Repo Vault</title>
+
+    <!-- Google Font: Orbitron (Cyberpunk) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet" />
+
+    <!-- ============================================================
+         STYLES
+         ============================================================ -->
+    <style>
+        /* ── CSS Custom Properties (Theme) ── */
+        :root {
+            /* ── Dark Theme (default) ── */
+            --neon-green: #aaff33;
+            --neon-green-glow: rgba(170, 255, 51, 0.6);
+            --neon-green-dim: rgba(170, 255, 51, 0.08);
+            --neon-cyan: #00ffff;
+            --neon-pink: #ff0080;
+            --bg-body: #0a0a0a;
+            --bg-gradient: radial-gradient(ellipse at center, #000000 0%, #0a0a0a 100%);
+            --bg-card: rgba(0, 0, 0, 0.75);
+            --bg-header: linear-gradient(135deg, #000000ee 0%, #0d1a00ee 60%, #000000ee 100%);
+            --bg-nav: #0a0a0a;
+            --bg-footer: linear-gradient(135deg, #000000 0%, #0d1a00 50%, #000000 100%);
+            --border-subtle: rgba(170, 255, 51, 0.2);
+            --text-primary: #eee;
+            --text-muted: #88cc44;
+            --text-dim: #556633;
+            --text-card: #ddd;
+            --shadow-neon: 0 0 30px rgba(170, 255, 51, 0.4);
+            --scanline-color: rgba(170, 255, 51, 0.03);
+            --repo-url-color: #000;
+            --header-height: 80px;
+            --nav-height: 44px;
+            --transition-theme: 0.4s ease;
+            --search-bg: rgba(0, 0, 0, 0.85);
+            --desc-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* ── Light Theme ──
+           Activated by toggling .light-theme on <html>.
+           A neon-on-white scheme that keeps the cyberpunk vibe
+           but with a clean, bright background for readability.
+        ── */
+        .light-theme {
+            --neon-green: #0088cc;
+            --neon-green-glow: rgba(0, 136, 204, 0.5);
+            --neon-green-dim: rgba(0, 136, 204, 0.06);
+            --neon-cyan: #006699;
+            --neon-pink: #cc0066;
+            --bg-body: #f4f7fa;
+            --bg-gradient: radial-gradient(ellipse at center, #e8edf2 0%, #f4f7fa 100%);
+            --bg-card: rgba(255, 255, 255, 0.88);
+            --bg-header: linear-gradient(135deg, #ffffff 0%, #e0f0ff 50%, #ffffff 100%);
+            --bg-nav: #ffffff;
+            --bg-footer: linear-gradient(135deg, #ffffff 0%, #e0f0ff 50%, #ffffff 100%);
+            --border-subtle: rgba(0, 136, 204, 0.2);
+            --text-primary: #1a1a2e;
+            --text-muted: #0077aa;
+            --text-dim: #667788;
+            --text-card: #2a2a3e;
+            --shadow-neon: 0 0 20px rgba(0, 136, 204, 0.25);
+            --scanline-color: rgba(0, 136, 204, 0.02);
+            --repo-url-color: #003355;
+            --search-bg: rgba(255, 255, 255, 0.9);
+            --desc-color: rgba(40, 40, 60, 0.5);
+            --transition-theme: 0.4s ease;
+        }
+
+        /* ── RESET ── */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Orbitron', 'Arial', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background var(--transition-theme), color var(--transition-theme);
+        }
+
+        /* ══════════════════════════════════════════════
+           SCANLINE OVERLAY — Retro CRT Monitor Effect
+           ══════════════════════════════════════════════ */
+        .scanline {
+            position: fixed;
+            inset: 0;
+            background-image: linear-gradient(var(--scanline-color) 1px, transparent 1px);
+            background-size: 100% 3px;
+            pointer-events: none;
+            z-index: 999;
+            transition: background var(--transition-theme);
+        }
+
+        /* ══════════════════════════════════════════════
+           PAGE HEADER — Sticky Neon Bar
+           ══════════════════════════════════════════════ */
+        .page-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--bg-header);
+            border-bottom: 2px solid var(--neon-green);
+            box-shadow: var(--shadow-neon);
+            padding: 0.9rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 1rem;
+            transition: background var(--transition-theme),
+                        border-color var(--transition-theme),
+                        box-shadow var(--transition-theme);
+        }
+
+        /* Animated glow bar beneath header */
+        .page-header::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-green), #66ff00, var(--neon-green), transparent);
+            animation: scanBar 3s linear infinite;
+        }
+
+        @keyframes scanBar {
+            0%   { opacity: 0.4; }
+            50%  { opacity: 1; }
+            100% { opacity: 0.4; }
+        }
+
+        .hdr-left  { text-align: left; }
+        .hdr-center { text-align: center; }
+        .hdr-right  { text-align: right; }
+
+        .hdr-left .username {
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: var(--neon-green);
+            text-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green-glow);
+            letter-spacing: 0.1em;
+        }
+
+        .hdr-left .project-label {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-top: 2px;
+            opacity: 0.8;
+        }
+
+        .hdr-center .site-title {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--neon-green);
+            text-shadow: 0 0 12px var(--neon-green), 0 0 30px var(--neon-green-glow);
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+        }
+
+        .hdr-center .site-sub {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-top: 3px;
+            opacity: 0.75;
+        }
+
+        .hdr-right .hdr-date {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--neon-green);
+            text-shadow: 0 0 6px var(--neon-green-glow);
+            letter-spacing: 0.08em;
+        }
+
+        .hdr-right .hdr-time {
+            font-size: 1rem;
+            font-family: 'Courier New', monospace;
+            color: #66ff00;
+            text-shadow: 0 0 8px rgba(102, 255, 0, 0.5);
+            margin-top: 2px;
+            letter-spacing: 0.12em;
+        }
+
+        /* ══════════════════════════════════════════════
+           NAVIGATION BAR
+           ══════════════════════════════════════════════ */
+        .nav-bar {
+            background: var(--bg-nav);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 0.4rem 2rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            position: sticky;
+            top: var(--header-height);
+            z-index: 99;
+            flex-wrap: wrap;
+            transition: background var(--transition-theme),
+                        border-color var(--transition-theme);
+        }
+
+        .nav-bar a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            transition: all 0.2s;
+        }
+
+        .nav-bar a:hover,
+        .nav-bar a:focus-visible {
+            color: var(--neon-green);
+            background: var(--neon-green-dim);
+            text-shadow: 0 0 8px var(--neon-green);
+            outline: none;
+        }
+
+        .nav-bar a:focus-visible {
+            outline: 2px solid var(--neon-green);
+            outline-offset: 2px;
+        }
+
+        .nav-bar .repo-count-badge {
+            background: rgba(170, 255, 51, 0.12);
+            border: 1px solid rgba(170, 255, 51, 0.4);
+            color: var(--neon-green);
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+            white-space: nowrap;
+            transition: background var(--transition-theme),
+                        border-color var(--transition-theme),
+                        color var(--transition-theme);
+        }
+
+        /* ── Theme Toggle Button ── */
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+            font-family: 'Orbitron', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease, background var(--transition-theme),
+                        border-color var(--transition-theme), color var(--transition-theme);
+            white-space: nowrap;
+            margin-left: auto;
+        }
+
+        .theme-toggle:hover,
+        .theme-toggle:focus-visible {
+            color: var(--neon-green);
+            border-color: var(--neon-green);
+            background: var(--neon-green-dim);
+            box-shadow: 0 0 12px var(--neon-green-glow);
+        }
+
+        .theme-toggle:focus-visible {
+            outline: 2px solid var(--neon-green);
+            outline-offset: 2px;
+        }
+
+        .theme-toggle .toggle-icon {
+            font-size: 0.85rem;
+            line-height: 1;
+            transition: transform 0.4s ease;
+        }
+
+        .theme-toggle .toggle-label {
+            transition: opacity 0.3s ease;
+        }
+
+        /* Light theme overrides on toggle */
+        .light-theme .theme-toggle {
+            border-color: rgba(0, 136, 204, 0.3);
+            color: #0077aa;
+        }
+        .light-theme .theme-toggle:hover {
+            color: #0088cc;
+            border-color: #0088cc;
+            background: rgba(0, 136, 204, 0.06);
+            box-shadow: 0 0 12px rgba(0, 136, 204, 0.3);
+        }
+
+        /* ── Audio Ambience Toggle Button (Enhancement #4) ── */
+        .audio-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+            font-family: 'Orbitron', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease, background var(--transition-theme),
+                        border-color var(--transition-theme), color var(--transition-theme);
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .audio-toggle:hover,
+        .audio-toggle:focus-visible {
+            color: var(--neon-green);
+            border-color: var(--neon-green);
+            background: var(--neon-green-dim);
+            box-shadow: 0 0 12px var(--neon-green-glow);
+        }
+
+        .audio-toggle:focus-visible {
+            outline: 2px solid var(--neon-green);
+            outline-offset: 2px;
+        }
+
+        .audio-toggle .audio-icon {
+            font-size: 0.8rem;
+            line-height: 1;
+            transition: transform 0.4s ease;
+        }
+
+        .audio-toggle .audio-label {
+            transition: opacity 0.3s ease;
+        }
+
+        /* Active state — audio is playing */
+        .audio-toggle.active {
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+            box-shadow: 0 0 14px rgba(0, 255, 255, 0.3);
+            background: rgba(0, 255, 255, 0.06);
+        }
+
+        .audio-toggle.active:hover {
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Audio visualizer rings (subtle pulsing circles around button when active) */
+        .audio-toggle .audio-ring {
+            position: absolute;
+            inset: -4px;
+            border-radius: 22px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .audio-toggle.active .audio-ring {
+            opacity: 1;
+            animation: audioPing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+
+        .audio-toggle.active .audio-ring:nth-child(2) {
+            animation-delay: 0.6s;
+        }
+
+        .audio-toggle.active .audio-ring:nth-child(3) {
+            animation-delay: 1.2s;
+        }
+
+        @keyframes audioPing {
+            0% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.3); opacity: 0; }
+            100% { transform: scale(1.3); opacity: 0; }
+        }
+
+        .light-theme .audio-toggle.active {
+            border-color: #006699;
+            color: #006699;
+            box-shadow: 0 0 14px rgba(0, 102, 153, 0.3);
+            background: rgba(0, 102, 153, 0.06);
+        }
+
+        /* ══════════════════════════════════════════════
+           MAIN CONTENT
+           ══════════════════════════════════════════════ */
+        main {
+            flex: 1;
+            padding: 1.5rem 2rem 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-subtle);
+            transition: border-color var(--transition-theme);
+        }
+
+        .section-heading h2 {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--neon-green);
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            text-shadow: 0 0 8px var(--neon-green-glow);
+        }
+
+        .section-heading .line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--border-subtle), transparent);
+            transition: background var(--transition-theme);
+        }
+
+        /* ══════════════════════════════════════════════
+           SEARCH & FILTER TOOLBAR (Enhancement #2)
+           ============================================
+           Real-time search across name/description/language,
+           sort controls, language filter, result counter,
+           keyboard shortcuts, and animated highlights.
+           ══════════════════════════════════════════════ */
+
+        /* ── Toolbar Container ── */
+        .search-toolbar {
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        /* ── Search Row ── */
+        .search-row {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .search-input-wrap {
+            flex: 1;
+            min-width: 200px;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.55rem 2.2rem 0.55rem 1rem;
+            background: var(--search-bg);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            color: var(--neon-green);
+            font-family: 'Orbitron', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.07em;
+            transition: border-color 0.3s, box-shadow 0.3s,
+                        background var(--transition-theme), color var(--transition-theme);
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: rgba(170, 255, 51, 0.35);
+            text-transform: uppercase;
+            font-size: 0.6rem;
+            letter-spacing: 0.15em;
+        }
+
+        .search-input:focus {
+            border-color: var(--neon-green);
+            box-shadow: 0 0 16px var(--neon-green-glow);
+        }
+
+        /* Search icon inside input */
+        .search-input-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.75rem;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        /* Keyboard shortcut badge inside input */
+        .search-kbd {
+            position: absolute;
+            right: 32px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.5rem;
+            font-family: 'Courier New', monospace;
+            color: rgba(170, 255, 51, 0.25);
+            border: 1px solid rgba(170, 255, 51, 0.15);
+            border-radius: 3px;
+            padding: 0.05rem 0.35rem;
+            pointer-events: none;
+            letter-spacing: 0.05em;
+        }
+
+        .search-input:focus ~ .search-kbd,
+        .search-input:not(:placeholder-shown) ~ .search-kbd {
+            display: none;
+        }
+
+        .light-theme .search-kbd {
+            color: rgba(0, 136, 204, 0.25);
+            border-color: rgba(0, 136, 204, 0.15);
+        }
+
+        .search-clear {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+            font-family: 'Orbitron', monospace;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            padding: 0.5rem 0.7rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .search-clear:hover {
+            background: var(--neon-green-dim);
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+        }
+
+        /* ── Filter Row ── */
+        .filter-row {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-label {
+            font-size: 0.55rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            opacity: 0.8;
+            margin-right: 0.2rem;
+        }
+
+        .filter-select {
+            background: var(--search-bg);
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            color: var(--neon-green);
+            font-family: 'Orbitron', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.08em;
+            padding: 0.35rem 0.5rem;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s,
+                        background var(--transition-theme), color var(--transition-theme);
+            max-width: 180px;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='6'%3E%3Cpath d='M0 0l4 6 4-6z' fill='%23aaff33' opacity='0.6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            padding-right: 24px;
+        }
+
+        .filter-select:hover,
+        .filter-select:focus {
+            border-color: var(--neon-green);
+            box-shadow: 0 0 8px var(--neon-green-glow);
+        }
+
+        .light-theme .filter-select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='6'%3E%3Cpath d='M0 0l4 6 4-6z' fill='%230088cc' opacity='0.6'/%3E%3C/svg%3E");
+            color: #0088cc;
+        }
+
+        .filter-select option {
+            background: #111;
+            color: #aaff33;
+        }
+
+        .light-theme .filter-select option {
+            background: #f4f7fa;
+            color: #1a1a2e;
+        }
+
+        /* Sort direction toggle button */
+        .sort-dir-btn {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            padding: 0.25rem 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sort-dir-btn:hover {
+            background: var(--neon-green-dim);
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+        }
+
+        /* ── Result Counter ── */
+        .result-counter {
+            font-size: 0.6rem;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-left: auto;
+            opacity: 0.9;
+            white-space: nowrap;
+            transition: color var(--transition-theme), opacity 0.3s;
+        }
+
+        .result-counter strong {
+            color: var(--neon-green);
+            font-weight: 700;
+        }
+
+        .result-counter .counter-sep {
+            color: var(--text-dim);
+            opacity: 0.5;
+        }
+
+        /* ── Highlighted matching text ── */
+        .search-highlight {
+            background: rgba(170, 255, 51, 0.25);
+            color: #fff;
+            padding: 0 0.15em;
+            border-radius: 2px;
+            box-shadow: 0 0 6px rgba(170, 255, 51, 0.3);
+        }
+
+        .light-theme .search-highlight {
+            background: rgba(0, 136, 204, 0.2);
+            color: #003355;
+            box-shadow: 0 0 6px rgba(0, 136, 204, 0.2);
+        }
+
+        /* ── Animations ── */
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .repo-item-enter {
+            animation: fadeSlideIn 0.25s ease forwards;
+        }
+
+        /* ── Empty state ── */
+        .empty-search {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-dim);
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+
+        .empty-search .empty-icon {
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ── Repository List ── */
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 0.5rem 0;
+            background: var(--bg-card);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px var(--neon-green-glow);
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            flex-direction: column;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+            color: var(--text-card);
+            transition: all 0.25s ease, background var(--transition-theme),
+                        box-shadow var(--transition-theme), border-color var(--transition-theme),
+                        color var(--transition-theme);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Scanline accent on hover */
+        li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--neon-green);
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 0.25s ease;
+        }
+
+        li:hover::before {
+            transform: scaleY(1);
+        }
+
+        li:hover {
+            background: var(--neon-green-dim);
+            box-shadow: 0 0 18px var(--neon-green-glow);
+            border-color: rgba(170, 255, 51, 0.4);
+            transform: translateX(5px);
+        }
+
+        /* Focus for keyboard nav */
+        li:focus-within {
+            background: var(--neon-green-dim);
+            box-shadow: 0 0 18px var(--neon-green-glow);
+            border-color: rgba(170, 255, 51, 0.4);
+        }
+
+        .repo-name {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--neon-green);
+            text-decoration: none;
+            margin-bottom: 0.2rem;
+            text-shadow: 0 0 6px var(--neon-green-glow);
+            letter-spacing: 0.05em;
+        }
+
+        .repo-name:hover,
+        .repo-name:focus-visible {
+            text-decoration: underline;
+            outline: none;
+        }
+
+        .repo-name:focus-visible {
+            outline: 1px dotted var(--neon-green);
+            outline-offset: 2px;
+        }
+
+        .url-label {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin: 0.25rem 0 0.1rem;
+            opacity: 0.8;
+        }
+
+        .repo-url {
+            display: inline-block;
+            font-size: 0.78em;
+            color: var(--repo-url-color);
+            background: linear-gradient(90deg, var(--neon-green), #66cc00);
+            text-decoration: none;
+            word-break: break-all;
+            padding: 0.18rem 0.55rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-weight: 700;
+            box-shadow: 0 0 8px var(--neon-green-glow), inset 0 0 4px rgba(255, 255, 255, 0.13);
+            transition: all 0.25s ease;
+            max-width: 100%;
+            margin-bottom: 0.2rem;
+        }
+
+        .repo-url:hover,
+        .repo-url:focus-visible {
+            background: linear-gradient(90deg, #ccff66, var(--neon-green));
+            box-shadow: 0 0 16px var(--neon-green);
+            text-decoration: underline;
+            outline: none;
+        }
+
+        .repo-url:focus-visible {
+            outline: 2px solid #fff;
+            outline-offset: 2px;
+        }
+
+        /* Loading skeleton */
+        .skeleton {
+            background: linear-gradient(90deg, rgba(170, 255, 51, 0.05) 25%, rgba(170, 255, 51, 0.15) 50%, rgba(170, 255, 51, 0.05) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 8px;
+            height: 60px;
+            margin: 0.5rem 0;
+        }
+
+        @keyframes shimmer {
+            0%   { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* ── Stats Row ── */
+        .repo-stats {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.3rem;
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: color var(--transition-theme);
+        }
+
+        .repo-stats span {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .repo-stats .stat-icon {
+            font-size: 0.7rem;
+        }
+
+        .repo-description {
+            font-size: 0.7rem;
+            color: var(--desc-color);
+            margin-top: 0.25rem;
+            letter-spacing: 0.05em;
+            font-family: 'Courier New', monospace;
+            font-style: italic;
+            transition: color var(--transition-theme);
+        }
+
+        /* ══════════════════════════════════════════════
+           DOC 911 — LOGO SECTION (Cosmic Blackhole)
+           ══════════════════════════════════════════════
+           FIX: Added position:relative so .glow-orbit
+           stays contained within this section.
+           ══════════════════════════════════════════════ */
+        .logo-section {
+            position: relative; /* ← BUG FIX: contain .glow-orbit */
+            z-index: 2;
+            padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: radial-gradient(ellipse at center, #111428 0%, #020308 60%, #000 100%);
+            border-top: 2px solid rgba(0, 255, 255, 0.27);
+            border-bottom: 2px solid rgba(0, 255, 255, 0.27);
+            transition: background var(--transition-theme),
+                        border-color var(--transition-theme);
+        }
+
+        .light-theme .logo-section {
+            background: radial-gradient(ellipse at center, #d4e6f7 0%, #eef4fa 60%, #f4f7fa 100%);
+            border-top-color: rgba(0, 136, 204, 0.2);
+            border-bottom-color: rgba(0, 136, 204, 0.2);
+        }
+
+        .light-theme .logo-wrapper {
+            background: radial-gradient(circle at top, rgba(255, 255, 255, 0.95), rgba(230, 240, 250, 0.97));
+            box-shadow: 0 0 40px rgba(0, 136, 204, 0.15), 0 0 80px rgba(204, 0, 102, 0.1);
+            border-color: rgba(0, 136, 204, 0.2);
+        }
+
+        .light-theme .logo-section-title {
+            color: rgba(0, 102, 153, 0.6);
+        }
+
+        .light-theme .badge {
+            color: #cc0066;
+        }
+
+        .light-theme .logo-title {
+            color: #cc0066;
+            text-shadow: 0 0 12px rgba(204, 0, 102, 0.5), 0 0 30px rgba(204, 0, 102, 0.3);
+        }
+
+        .light-theme .logo-sub {
+            color: #006699;
+        }
+
+        .light-theme .logo-tagline {
+            color: #335577;
+        }
+
+        .light-theme .tiny-hint {
+            color: #226688;
+        }
+
+        .light-theme .pulse-dot {
+            background: #006699;
+            box-shadow: 0 0 10px #006699;
+        }
+
+        .light-theme .glow-orbit {
+            background: radial-gradient(circle, rgba(0, 136, 204, 0.12), transparent 60%);
+        }
+
+        .light-theme .scanline {
+            opacity: 0.3;
+        }
+
+        .light-theme .status-dot {
+            background: #0088cc;
+            box-shadow: 0 0 8px #0088cc;
+        }
+
+        .light-theme .footer-status {
+            color: #0077aa;
+        }
+
+        /* ── Smooth theme transition on all themed elements ── */
+        .theme-transitioning * {
+            transition: background-color 0.4s ease,
+                        color 0.4s ease,
+                        border-color 0.4s ease,
+                        box-shadow 0.4s ease !important;
+        }
+
+        .logo-section-title {
+            font-size: 0.65rem;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: rgba(0, 255, 255, 0.53);
+            margin-bottom: 1.5rem;
+        }
+
+        .glow-orbit {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 420px;
+            height: 420px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.18), transparent 60%);
+            filter: blur(20px);
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .logo-wrapper {
+            position: relative;
+            padding: 40px 36px 30px;
+            border-radius: 24px;
+            background: radial-gradient(circle at top, rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.97));
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.2), 0 0 100px rgba(255, 0, 128, 0.2);
+            border: 1px solid rgba(0, 255, 255, 0.35);
+            text-align: center;
+            transition: background var(--transition-theme),
+                        box-shadow var(--transition-theme),
+                        border-color var(--transition-theme);
+        }
+
+        .badge {
+            position: absolute;
+            top: 14px;
+            right: 18px;
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--neon-pink);
+            opacity: 0.85;
+        }
+
+        .blackhole-logo {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            /* FIX: Use CSS-only filter instead of SVG url() for broader
+               browser support. The SVG warp filter is available as a
+               progressive enhancement via a custom property override. */
+            filter: drop-shadow(0 0 24px #0ff);
+            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1),
+                        filter 0.8s ease;
+            cursor: pointer;
+        }
+
+        .blackhole-logo:hover {
+            transform: rotate(720deg) scale(1.3);
+            filter: drop-shadow(0 0 44px #ff0);
+        }
+
+        .logo-title {
+            margin-top: 18px;
+            font-size: 2rem;
+            letter-spacing: 0.35em;
+            text-indent: 0.35em;
+            text-transform: uppercase;
+            color: var(--neon-pink);
+            text-shadow: 0 0 12px rgba(255, 0, 128, 0.9), 0 0 30px rgba(255, 0, 128, 0.6);
+        }
+
+        .logo-sub {
+            margin-top: 6px;
+            font-size: 0.8rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--neon-cyan);
+            opacity: 0.85;
+        }
+
+        .logo-tagline {
+            margin-top: 16px;
+            font-size: 0.7rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #b0faff;
+            opacity: 0.9;
+        }
+
+        .pulse-dot {
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            margin-right: 6px;
+            border-radius: 50%;
+            background: var(--neon-cyan);
+            box-shadow: 0 0 10px var(--neon-cyan);
+            animation: pulse 1.4s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes pulse {
+            0%   { transform: scale(0.7); opacity: 0.4; }
+            50%  { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.7); opacity: 0.4; }
+        }
+
+        .tiny-hint {
+            margin-top: 10px;
+            font-size: 0.58rem;
+            color: #4ff;
+            opacity: 0.7;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        /* ══════════════════════════════════════════════
+           PAGE FOOTER
+           ══════════════════════════════════════════════ */
+        .page-footer {
+            background: var(--bg-footer);
+            border-top: 2px solid var(--neon-green);
+            box-shadow: var(--shadow-neon);
+            padding: 1.5rem 2rem;
+            position: relative;
+            z-index: 2;
+            transition: background var(--transition-theme),
+                        border-color var(--transition-theme),
+                        box-shadow var(--transition-theme);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-left   { text-align: left; }
+        .footer-center { text-align: center; }
+        .footer-right  { text-align: right; }
+
+        .footer-left .footer-brand {
+            font-size: 1rem;
+            font-weight: 900;
+            color: var(--neon-green);
+            text-shadow: 0 0 8px var(--neon-green-glow);
+            letter-spacing: 0.1em;
+        }
+
+        .footer-left .footer-tagline {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-top: 3px;
+            opacity: 0.75;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            transition: color 0.2s, text-shadow 0.2s;
+        }
+
+        .footer-links a:hover,
+        .footer-links a:focus-visible {
+            color: var(--neon-green);
+            text-shadow: 0 0 8px var(--neon-green);
+            outline: none;
+        }
+
+        .footer-right .footer-status {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .footer-right .status-dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--neon-green);
+            box-shadow: 0 0 8px var(--neon-green);
+            margin-right: 5px;
+            animation: pulse 1.8s infinite;
+            vertical-align: middle;
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-subtle), var(--neon-green-glow), var(--border-subtle), transparent);
+            margin: 0.75rem 0;
+            transition: background var(--transition-theme);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.6rem;
+            color: var(--text-dim);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .footer-bottom span { opacity: 0.7; }
+
+        /* ══════════════════════════════════════════════
+           LANGUAGE PIE / DONUT CHART (Enhancement #5)
+           ══════════════════════════════════════════════
+           Animated SVG donut chart showing language
+           distribution across all repos. Rendered inline
+           with a color-coded legend below. Updates when
+           filters change (showing filtered languages).
+           ══════════════════════════════════════════════ */
+
+        .lang-chart-section {
+            margin: 1.5rem 0 1rem;
+            padding: 1rem;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 0 12px var(--neon-green-glow);
+            transition: background var(--transition-theme),
+                        border-color var(--transition-theme),
+                        box-shadow var(--transition-theme);
+        }
+
+        .lang-chart-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .lang-chart-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--neon-green);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            text-shadow: 0 0 6px var(--neon-green-glow);
+        }
+
+        .lang-chart-title .chart-sub {
+            font-size: 0.55rem;
+            color: var(--text-dim);
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            margin-left: 0.5rem;
+        }
+
+        .lang-chart-body {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ── SVG Donut ── */
+        .lang-donut-wrap {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            flex-shrink: 0;
+        }
+
+        .lang-donut-wrap svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .lang-donut-wrap .donut-center-text {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .lang-donut-wrap .donut-center-text .donut-count {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--neon-green);
+            text-shadow: 0 0 10px var(--neon-green-glow);
+            line-height: 1;
+        }
+
+        .lang-donut-wrap .donut-center-text .donut-label {
+            font-size: 0.5rem;
+            color: var(--text-dim);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        /* Donut segment hover glow */
+        .lang-donut-segment {
+            transition: opacity 0.2s, filter 0.2s;
+            cursor: pointer;
+        }
+
+        .lang-donut-segment:hover {
+            filter: brightness(1.3) drop-shadow(0 0 6px rgba(255,255,255,0.4));
+            opacity: 0.9;
+        }
+
+        /* ── Legend ── */
+        .lang-legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 0.4rem;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .lang-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s, opacity 0.2s;
+            font-size: 0.65rem;
+            letter-spacing: 0.05em;
+            color: var(--text-card);
+        }
+
+        .lang-legend-item:hover {
+            background: var(--neon-green-dim);
+        }
+
+        .lang-legend-item .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .lang-legend-item .legend-name {
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .lang-legend-item .legend-count {
+            font-family: 'Courier New', monospace;
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+
+        .lang-legend-item .legend-pct {
+            font-size: 0.55rem;
+            color: var(--text-dim);
+            min-width: 2.4em;
+            text-align: right;
+        }
+
+        /* ── No data ── */
+        .lang-chart-empty {
+            text-align: center;
+            padding: 1.5rem;
+            color: var(--text-dim);
+            font-size: 0.6rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0.6;
+        }
+
+        /* ── Chart hide on mobile ── */
+        @media (max-width: 600px) {
+            .lang-legend {
+                grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            }
+            .lang-donut-wrap {
+                width: 140px;
+                height: 140px;
+            }
+            .lang-donut-wrap .donut-center-text .donut-count {
+                font-size: 1.4rem;
+            }
+        }
+
+        /* ══════════════════════════════════════════════
+           REPO PREVIEW MODAL (Enhancement #3)
+           ══════════════════════════════════════════════
+
+           A futuristic cyberpunk modal that shows detailed
+           repository info: README, topics, metadata, etc.
+           Activated by clicking a repo card or the preview
+           button. Closes via Esc, overlay click, or X btn.
+           ══════════════════════════════════════════════ */
+
+        /* ── Overlay ── */
+        .preview-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.82);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.35s ease, visibility 0.35s ease;
+        }
+
+        .preview-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .light-theme .preview-overlay {
+            background: rgba(240, 245, 250, 0.85);
+        }
+
+        /* ── Modal Panel ── */
+        .preview-modal {
+            position: relative;
+            width: 100%;
+            max-width: 720px;
+            max-height: 85vh;
+            background: var(--bg-card);
+            border: 1px solid var(--neon-green);
+            border-radius: 16px;
+            box-shadow: 0 0 60px var(--neon-green-glow),
+                        inset 0 0 30px rgba(170, 255, 51, 0.04);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transform: scale(0.92) translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .preview-overlay.active .preview-modal {
+            transform: scale(1) translateY(0);
+        }
+
+        /* ── Modal Header ── */
+        .preview-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 1.25rem 1.5rem 0.75rem;
+            border-bottom: 1px solid var(--border-subtle);
+            flex-shrink: 0;
+        }
+
+        .preview-header-icon {
+            font-size: 1.4rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .preview-header-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .preview-header-info .preview-repo-name {
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: var(--neon-green);
+            letter-spacing: 0.05em;
+            text-shadow: 0 0 8px var(--neon-green-glow);
+            word-break: break-word;
+            margin-bottom: 0.2rem;
+        }
+
+        .preview-header-info .preview-full-name {
+            font-size: 0.6rem;
+            color: var(--text-dim);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .preview-close-btn {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+            font-size: 1rem;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .preview-close-btn:hover {
+            background: rgba(255, 68, 68, 0.15);
+            border-color: #ff4444;
+            color: #ff4444;
+            box-shadow: 0 0 12px rgba(255, 68, 68, 0.3);
+        }
+
+        /* ── Modal Body (scrollable) ── */
+        .preview-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem 1.5rem 1.25rem;
+            scrollbar-width: thin;
+            scrollbar-color: var(--neon-green) transparent;
+        }
+
+        .preview-body::-webkit-scrollbar { width: 5px; }
+        .preview-body::-webkit-scrollbar-track { background: transparent; }
+        .preview-body::-webkit-scrollbar-thumb { background: var(--neon-green); border-radius: 10px; }
+
+        /* ── Description ── */
+        .preview-description {
+            font-size: 0.75rem;
+            color: var(--text-card);
+            letter-spacing: 0.04em;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            padding: 0.75rem 1rem;
+            background: rgba(170, 255, 51, 0.04);
+            border-left: 2px solid var(--neon-green);
+            border-radius: 0 6px 6px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* ── Meta Grid ── */
+        .preview-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 0.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .preview-meta-item {
+            background: rgba(170, 255, 51, 0.04);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 0.5rem 0.7rem;
+            text-align: center;
+        }
+
+        .preview-meta-item .meta-value {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--neon-green);
+            letter-spacing: 0.05em;
+        }
+
+        .preview-meta-item .meta-label {
+            font-size: 0.5rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-top: 2px;
+        }
+
+        .preview-meta-item.meta-language .lang-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+
+        /* ── Topics / Tags ── */
+        .preview-topics { margin-bottom: 1rem; }
+
+        .preview-topics-label {
+            font-size: 0.55rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.4rem;
+        }
+
+        .preview-topics-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .preview-topic-tag {
+            background: rgba(170, 255, 51, 0.1);
+            border: 1px solid rgba(170, 255, 51, 0.2);
+            color: var(--neon-green);
+            font-size: 0.6rem;
+            letter-spacing: 0.08em;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .light-theme .preview-topic-tag {
+            background: rgba(0, 136, 204, 0.08);
+            border-color: rgba(0, 136, 204, 0.2);
+        }
+
+        /* ── README Section ── */
+        .preview-readme { margin-top: 0.5rem; }
+
+        .preview-readme-label {
+            font-size: 0.55rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .preview-readme-label .readme-loading {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 2px solid var(--border-subtle);
+            border-top-color: var(--neon-green);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .preview-readme-content {
+            font-size: 0.7rem;
+            color: var(--text-card);
+            letter-spacing: 0.03em;
+            line-height: 1.7;
+            padding: 0.75rem 1rem;
+            background: rgba(170, 255, 51, 0.02);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            max-height: 240px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .preview-readme-content::-webkit-scrollbar { width: 4px; }
+        .preview-readme-content::-webkit-scrollbar-thumb { background: var(--neon-green); border-radius: 10px; }
+
+        .preview-readme-content .readme-placeholder {
+            color: var(--text-dim);
+            font-style: italic;
+            opacity: 0.6;
+        }
+
+        .preview-readme-error { color: #ff6666; font-size: 0.65rem; }
+
+        /* ── Modal Footer ── */
+        .preview-footer {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem 1.25rem;
+            border-top: 1px solid var(--border-subtle);
+            flex-shrink: 0;
+            flex-wrap: wrap;
+        }
+
+        .preview-footer a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.6rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .preview-footer .preview-btn-primary {
+            background: linear-gradient(90deg, var(--neon-green), #66cc00);
+            color: var(--repo-url-color);
+            font-weight: 700;
+            box-shadow: 0 0 12px var(--neon-green-glow);
+        }
+
+        .preview-footer .preview-btn-primary:hover {
+            box-shadow: 0 0 24px var(--neon-green);
+            transform: translateY(-1px);
+        }
+
+        .preview-footer .preview-btn-secondary {
+            border: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+        }
+
+        .preview-footer .preview-btn-secondary:hover {
+            background: var(--neon-green-dim);
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+        }
+
+        /* ── Preview trigger button on cards (hover reveals) ── */
+        .repo-preview-trigger {
+            position: absolute;
+            top: 8px;
+            right: 10px;
+            background: rgba(170, 255, 51, 0.1);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+            font-size: 0.65rem;
+            padding: 0.2rem 0.45rem;
+            border-radius: 4px;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.25s ease;
+            z-index: 5;
+            font-family: 'Orbitron', monospace;
+            letter-spacing: 0.08em;
+        }
+
+        li:hover .repo-preview-trigger { opacity: 1; }
+
+        .repo-preview-trigger:hover {
+            background: var(--neon-green-dim);
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+            box-shadow: 0 0 10px var(--neon-green-glow);
+        }
+
+        .light-theme .repo-preview-trigger { background: rgba(0, 136, 204, 0.06); }
+        .light-theme .repo-preview-trigger:hover {
+            background: rgba(0, 136, 204, 0.1);
+            border-color: #0088cc;
+            color: #0088cc;
+        }
+
+        /* ── Responsive Modal ── */
+        @media (max-width: 600px) {
+            .preview-overlay { padding: 0.75rem; align-items: flex-end; }
+            .preview-modal { max-height: 92vh; border-radius: 16px 16px 0 0; }
+            .preview-meta { grid-template-columns: repeat(2, 1fr); }
+            .preview-header { padding: 1rem 1rem 0.5rem; }
+            .preview-body { padding: 0.75rem 1rem 1rem; }
+            .preview-footer { padding: 0.5rem 1rem 1rem; }
+        }
+
+        /* ══════════════════════════════════════════════
+           RESPONSIVE ADJUSTMENTS
+           ══════════════════════════════════════════════ */
+        @media (max-width: 768px) {
+            .page-header {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 0.25rem;
+                padding: 0.6rem 1rem;
+            }
+            .hdr-left,
+            .hdr-right {
+                text-align: center;
+            }
+            .hdr-center .site-title {
+                font-size: 1.1rem;
+                letter-spacing: 0.15em;
+            }
+            .nav-bar {
+                top: 0;
+                padding: 0.3rem 1rem;
+                gap: 0.5rem;
+                justify-content: center;
+            }
+            .nav-bar .repo-count-badge {
+                margin-left: 0;
+            }
+            .theme-toggle,
+            .audio-toggle {
+                margin-left: 0;
+                font-size: 0.5rem;
+                padding: 0.25rem 0.5rem;
+            }
+            main {
+                padding: 1rem;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .footer-left,
+            .footer-center,
+            .footer-right {
+                text-align: center;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+            .blackhole-logo {
+                width: 110px;
+                height: 110px;
+            }
+            .logo-title {
+                font-size: 1.4rem;
+            }
+            .glow-orbit {
+                width: 260px;
+                height: 260px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hdr-center .site-title {
+                font-size: 0.9rem;
+            }
+            .hdr-left .username {
+                font-size: 1rem;
+            }
+            .repo-name {
+                font-size: 0.85rem;
+            }
+            .search-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-input-wrap {
+                max-width: 100%;
+            }
+            .filter-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .filter-select {
+                max-width: 100%;
+            }
+            .result-counter {
+                margin-left: 0;
+                text-align: center;
+            }
+        }
+
+        /* ── Utility for screen-reader-only text ── */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ══ SCANLINE OVERLAY ══ -->
+    <div class="scanline" aria-hidden="true"></div>
+
+    <!-- ══ PARTICLE BACKGROUND ══ -->
+    <canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+    <!-- ══════════════════════════════════════════════
+    PAGE HEADER
+    ══════════════════════════════════════════════ -->
+    <header class="page-header" role="banner">
+        <div class="hdr-left">
+            <div class="username" aria-label="GitHub username">⬡ jahinvegas</div>
+            <div class="project-label">GitHub · Repository Index</div>
+        </div>
+        <div class="hdr-center">
+            <div class="site-title">Repo Vault</div>
+            <div class="site-sub">Live · Paginated · All Repos</div>
+        </div>
+        <div class="hdr-right">
+            <div class="hdr-date" id="hdr-date" aria-live="polite">—</div>
+            <div class="hdr-time" id="hdr-time" aria-live="polite">—</div>
+        </div>
+    </header>
+
+    <!-- ══════════════════════════════════════════════
+    NAVIGATION BAR
+    ══════════════════════════════════════════════ -->
+    <nav class="nav-bar" role="navigation" aria-label="Main navigation">
+        <a href="https://github.com/jahinvegas" target="_blank" rel="noopener noreferrer">
+            ⬡ GitHub Profile
+        </a>
+        <a href="https://jahinvegas.github.io" target="_blank" rel="noopener noreferrer">
+            ⬡ GitHub Pages
+        </a>
+        <a href="#logo-section">⬡ DOC 911</a>
+        <span class="repo-count-badge" id="nav-count" aria-live="polite">Loading…</span>
+        <!-- 🌓 Theme Toggle Button (Enhancement #1) -->
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle theme">
+            <span class="toggle-icon" id="theme-icon">🌙</span>
+            <span class="toggle-label" id="theme-label">Dark</span>
+        </button>
+        <!-- 🔊 Audio Ambience Toggle Button (Enhancement #4) -->
+        <button class="audio-toggle" id="audio-toggle" aria-label="Toggle ambient audio" title="Toggle cyberpunk ambient soundscape">
+            <span class="audio-ring"></span>
+            <span class="audio-ring"></span>
+            <span class="audio-ring"></span>
+            <span class="audio-icon" id="audio-icon">🔇</span>
+            <span class="audio-label" id="audio-label">Sound</span>
+        </button>
+    </nav>
+
+    <!-- ══════════════════════════════════════════════
+    MAIN CONTENT
+    ══════════════════════════════════════════════ -->
+    <main role="main">
+
+        <div class="section-heading">
+            <h2>⬡ Public Repositories</h2>
+            <div class="line"></div>
+        </div>
+
+        <!-- 🔍 Search & Filter Toolbar (Enhancement #2) -->
+        <div class="search-toolbar">
+            <!-- Search Row -->
+            <div class="search-row">
+                <div class="search-input-wrap">
+                    <input
+                        type="text"
+                        class="search-input"
+                        id="search-input"
+                        placeholder="Search name, description, language…"
+                        aria-label="Search repositories by name, description, or language"
+                        autocomplete="off"
+                        spellcheck="false"
+                    />
+                    <span class="search-kbd" aria-hidden="true">Ctrl+/</span>
+                    <span class="search-input-icon" aria-hidden="true">🔍</span>
+                </div>
+                <button class="search-clear" id="search-clear" aria-label="Clear all filters">✕ Clear</button>
+            </div>
+
+            <!-- Filter Row -->
+            <div class="filter-row">
+                <span class="filter-label">Sort</span>
+                <select class="filter-select" id="sort-select" aria-label="Sort repositories">
+                    <option value="name">Name</option>
+                    <option value="stars">Stars</option>
+                    <option value="forks">Forks</option>
+                    <option value="updated" selected>Updated</option>
+                </select>
+                <button class="sort-dir-btn" id="sort-dir-btn" aria-label="Toggle sort direction" title="Toggle sort direction">
+                    ⬇
+                </button>
+
+                <span class="filter-label" style="margin-left:0.5rem;">Language</span>
+                <select class="filter-select" id="lang-select" aria-label="Filter by programming language">
+                    <option value="">All Languages</option>
+                </select>
+
+                <span class="result-counter" id="result-counter">
+                    <strong>0</strong> <span class="counter-sep">/</span> <span id="counter-total">0</span> repos
+                </span>
+            </div>
+        </div>
+
+        <ul id="repo-list" role="list">
+            <!-- Skeleton loaders shown while fetching -->
+            <li class="skeleton" aria-hidden="true"></li>
+            <li class="skeleton" aria-hidden="true"></li>
+            <li class="skeleton" aria-hidden="true"></li>
+            <li class="skeleton" aria-hidden="true"></li>
+            <li class="skeleton" aria-hidden="true"></li>
+        </ul>
+
+        <!-- Rate-limit warning area -->
+        <div id="rate-limit-warning" role="alert" style="display:none;"></div>
+
+        <!-- 📊 Language Donut Chart (Enhancement #5) -->
+        <div class="lang-chart-section" id="lang-chart-section">
+            <div class="lang-chart-header">
+                <div class="lang-chart-title">
+                    ⬡ Language Distribution
+                    <span class="chart-sub">— across all repos</span>
+                </div>
+            </div>
+            <div class="lang-chart-body" id="lang-chart-body">
+                <div class="lang-donut-wrap">
+                    <svg id="lang-donut-svg" viewBox="0 0 200 200">
+                        <!-- Donut segments rendered by JS -->
+                        <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(170,255,51,0.06)" stroke-width="28" />
+                    </svg>
+                    <div class="donut-center-text">
+                        <div class="donut-count" id="donut-count">0</div>
+                        <div class="donut-label">Languages</div>
+                    </div>
+                </div>
+                <div class="lang-legend" id="lang-legend"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ══════════════════════════════════════════════
+    DOC 911 — COSMIC LOGO SECTION
+    ══════════════════════════════════════════════ -->
+    <section class="logo-section" id="logo-section" aria-label="DOC 911 Blackhole Attraction System">
+        <div class="logo-section-title">⬡ Powered By ⬡</div>
+        <div class="glow-orbit" aria-hidden="true"></div>
+        <div class="logo-wrapper">
+            <div class="badge">COSMIC BUILD · V2.0</div>
+
+            <!-- ⚡ ENHANCEMENT: SVG blackhole logo instead of external image
+                 for reliability and faster load. The SVG is an animated
+                 concentric-circle design with a glowing center. -->
+            <svg class="blackhole-logo" viewBox="0 0 200 200" aria-hidden="true" role="img">
+                <title>DOC 911 Blackhole Logo</title>
+                <defs>
+                    <radialGradient id="holeGlow" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%"   stop-color="#fff" stop-opacity="0.9" />
+                        <stop offset="15%"  stop-color="#0ff" stop-opacity="0.8" />
+                        <stop offset="40%"  stop-color="#0088ff" stop-opacity="0.5" />
+                        <stop offset="70%"  stop-color="#004488" stop-opacity="0.2" />
+                        <stop offset="100%" stop-color="#000" stop-opacity="0" />
+                    </radialGradient>
+                    <radialGradient id="ringGrad1" cx="50%" cy="50%" r="50%">
+                        <stop offset="60%" stop-color="#0ff" stop-opacity="0" />
+                        <stop offset="75%" stop-color="#0ff" stop-opacity="0.6" />
+                        <stop offset="85%" stop-color="#ff0080" stop-opacity="0.4" />
+                        <stop offset="95%" stop-color="#0ff" stop-opacity="0.1" />
+                        <stop offset="100%" stop-color="#0ff" stop-opacity="0" />
+                    </radialGradient>
+                    <radialGradient id="ringGrad2" cx="50%" cy="50%" r="50%">
+                        <stop offset="70%" stop-color="#ff0080" stop-opacity="0" />
+                        <stop offset="82%" stop-color="#ff0080" stop-opacity="0.5" />
+                        <stop offset="92%" stop-color="#aaff33" stop-opacity="0.3" />
+                        <stop offset="100%" stop-color="#aaff33" stop-opacity="0" />
+                    </radialGradient>
+                </defs>
+                <!-- Outer glow -->
+                <circle cx="100" cy="100" r="95" fill="url(#holeGlow)" opacity="0.6">
+                    <animate attributeName="r" dur="4s" values="90;98;90" repeatCount="indefinite" />
+                    <animate attributeName="opacity" dur="4s" values="0.6;0.9;0.6" repeatCount="indefinite" />
+                </circle>
+                <!-- Accretion disk ring 1 -->
+                <ellipse cx="100" cy="100" rx="85" ry="42" fill="none" stroke="url(#ringGrad1)" stroke-width="6"
+                         transform="rotate(-20 100 100)" opacity="0.7">
+                    <animateTransform attributeName="transform" type="rotate"
+                        values="-20 100 100;140 100 100;-20 100 100" dur="12s" repeatCount="indefinite" />
+                </ellipse>
+                <!-- Accretion disk ring 2 (counter-rotating) -->
+                <ellipse cx="100" cy="100" rx="90" ry="36" fill="none" stroke="url(#ringGrad2)" stroke-width="4"
+                         transform="rotate(30 100 100)" opacity="0.5">
+                    <animateTransform attributeName="transform" type="rotate"
+                        values="30 100 100;-130 100 100;30 100 100" dur="18s" repeatCount="indefinite" />
+                </ellipse>
+                <!-- Inner core -->
+                <circle cx="100" cy="100" r="18" fill="#fff" opacity="0.7">
+                    <animate attributeName="r" dur="2s" values="16;20;16" repeatCount="indefinite" />
+                    <animate attributeName="opacity" dur="2s" values="0.7;0.9;0.7" repeatCount="indefinite" />
+                </circle>
+                <!-- Event horizon shadow -->
+                <circle cx="100" cy="100" r="28" fill="#000" opacity="0.6">
+                    <animate attributeName="r" dur="3s" values="26;30;26" repeatCount="indefinite" />
+                </circle>
+            </svg>
+
+            <div class="logo-title">DOC 911</div>
+            <div class="logo-sub">BLACKHOLE ATTRACTION SYSTEM</div>
+            <p class="logo-tagline">
+                <span class="pulse-dot" aria-hidden="true"></span>
+                FUTURISTIC UNIVERSAL RAP · SIGNAL ANCHORED
+            </p>
+            <p class="tiny-hint">hover logo to spin · online-viewer.net</p>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+    PAGE FOOTER
+    ══════════════════════════════════════════════ -->
+    <footer class="page-footer" role="contentinfo">
+        <div class="footer-grid">
+            <div class="footer-left">
+                <div class="footer-brand">⬡ jahinvegas</div>
+                <div class="footer-tagline">GitHub Repository Index · All Rights Reserved</div>
+            </div>
+            <div class="footer-center">
+                <div class="footer-links">
+                    <a href="https://github.com/jahinvegas" target="_blank" rel="noopener noreferrer">GitHub</a>
+                    <a href="https://jahinvegas.github.io" target="_blank" rel="noopener noreferrer">Pages</a>
+                    <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" aria-label="Scroll to top of page">↑ Top</a>
+                </div>
+            </div>
+            <div class="footer-right">
+                <div class="footer-status">
+                    <span class="status-dot" aria-hidden="true"></span>Live · GitHub API
+                </div>
+            </div>
+        </div>
+        <div class="footer-divider" aria-hidden="true"></div>
+        <div class="footer-bottom">
+            <span>© <span id="footer-year">2025</span> DOC 911 · Blackhole Attraction · All Rights Reserved</span>
+            <span>online-viewer.net · Cosmic Build V2.0</span>
+        </div>
+    </footer>
+
+    <!-- ══════════════════════════════════════════════
+    REPO PREVIEW MODAL (Enhancement #3)
+    ══════════════════════════════════════════════ -->
+    <div class="preview-overlay" id="preview-overlay" role="dialog" aria-modal="true" aria-labelledby="preview-repo-name">
+        <div class="preview-modal">
+            <div class="preview-header">
+                <span class="preview-header-icon" aria-hidden="true">⬡</span>
+                <div class="preview-header-info">
+                    <div class="preview-repo-name" id="preview-repo-name">—</div>
+                    <div class="preview-full-name" id="preview-full-name">—</div>
+                </div>
+                <button class="preview-close-btn" id="preview-close-btn" aria-label="Close preview">&times;</button>
+            </div>
+            <div class="preview-body" id="preview-body">
+                <div class="preview-description" id="preview-desc"></div>
+                <div class="preview-meta" id="preview-meta"></div>
+                <div class="preview-topics" id="preview-topics">
+                    <div class="preview-topics-label">⬡ Topics</div>
+                    <div class="preview-topics-tags" id="preview-topics-tags"></div>
+                </div>
+                <div class="preview-readme">
+                    <div class="preview-readme-label">
+                        <span>⬡ README</span>
+                        <span class="readme-loading" id="readme-loading"></span>
+                    </div>
+                    <div class="preview-readme-content" id="preview-readme-content">
+                        <span class="readme-placeholder">Loading README…</span>
+                    </div>
+                </div>
+            </div>
+            <div class="preview-footer" id="preview-footer"></div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+    SVG FILTER DEFINITIONS (kept for progressive enhancement)
+    ══════════════════════════════════════════════
+    Note: The main logo now uses CSS-only filters for broader
+    browser support. These SVG filters remain available if you
+    want to apply them experimentally (swap via devtools).
+    ══════════════════════════════════════════════ -->
+    <svg style="position:absolute;width:0;height:0;" aria-hidden="true">
+        <filter id="warpFilter">
+            <feTurbulence type="fractalNoise" baseFrequency="0.015 0.025" numOctaves="2" seed="2" result="turbWarp">
+                <animate attributeName="baseFrequency" dur="10s" values="0.015 0.025;0.02 0.03;0.015 0.025" repeatCount="indefinite" />
+            </feTurbulence>
+            <feDisplacementMap in="SourceGraphic" in2="turbWarp" scale="20" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+        <filter id="warpFilterStrong">
+            <feTurbulence type="fractalNoise" baseFrequency="0.02 0.04" numOctaves="3" seed="8" result="turbWarpStrong">
+                <animate attributeName="baseFrequency" dur="6s" values="0.02 0.04;0.035 0.06;0.02 0.04" repeatCount="indefinite" />
+            </feTurbulence>
+            <feDisplacementMap in="SourceGraphic" in2="turbWarpStrong" scale="40" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+    </svg>
+
+    <!-- ══════════════════════════════════════════════
+    JAVASCRIPT
+    ══════════════════════════════════════════════ -->
+    <script>
+        /**
+         * ============================================================
+         *  jahinvegas — GitHub Repo Vault
+         *  JavaScript Module
+         *
+         *  Features:
+         *   - Live clock (1s interval)
+         *   - Theme toggle (Dark/Light) with localStorage persistence
+         *     and OS-level prefers-color-scheme detection
+         *   - Paginated GitHub API fetch (up to 100 repos/page)
+         *   - Real-time search across name, description & language
+         *   - Sort by name / stars / forks / last updated
+         *   - Sort direction toggle (ascending / descending)
+         *   - Language filter dropdown (auto-populated from repos)
+         *   - Search term highlighting in results
+         *   - Result counter ("12 / 45 repos")
+         *   - Debounced input for smooth performance
+         *   - Keyboard shortcuts (Ctrl+/ to focus, Esc to blur)
+         *   - Animated entry for repo cards
+         *   - Empty state when no results match
+         *   - Repository preview modal with full details
+         *   - Fetches README content (base64 decoded) from GitHub API
+         *   - Fetches repository topics/tags
+         *   - Meta grid (stars, forks, issues, watchers, language, created)
+         *   - Language color dots
+         *   - Preview button on hover + click card to open
+         *   - Keyboard Escape to close, click overlay to close
+         *   - Ambient Audio Engine (Web Audio API) — cyberpunk drone
+         *   - 4-layer synth: sub bass, filtered mid, noise wash, shimmer
+         *   - Mouse-reactive modulation (filter, volume, pitch, detune)
+         *   - LFO wobble on sub, filter sweep, shimmer detune
+         *   - User-initiated toggle with visual pulse rings
+         *   - Touch support for mobile modulation
+         *   - Language Distribution Donut Chart (SVG animated)
+         *   - Color-coded segments with hover highlight + dim
+         *   - Interactive legend (hover highlights segment, click filters)
+         *   - Updates dynamically on search/filter/sort
+         *   - Groups top 12 languages, rest as "Other"
+         *   - Rate-limit detection with user-friendly messages
+         *   - Dynamic footer year
+         *   - Interactive particle system with mouse avoidance
+         * ============================================================
+         */
+
+        (function() {
+            'use strict';
+
+            // ──────────────────────────────────────────────
+            // 1. LIVE CLOCK
+            // ──────────────────────────────────────────────
+
+            /** Update the header date/time elements every second */
+            function updateClock() {
+                const now = new Date();
+                const dateEl = document.getElementById('hdr-date');
+                const timeEl = document.getElementById('hdr-time');
+                if (dateEl) {
+                    dateEl.textContent = now.toLocaleDateString(undefined, {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+                }
+                if (timeEl) {
+                    timeEl.textContent = now.toLocaleTimeString(undefined, {
+                        hour12: false
+                    });
+                }
+            }
+            setInterval(updateClock, 1000);
+            updateClock();
+
+            // Auto-update footer copyright year
+            const footerYear = document.getElementById('footer-year');
+            if (footerYear) {
+                footerYear.textContent = new Date().getFullYear();
+            }
+
+            // ──────────────────────────────────────────────
+            // 2. THEME TOGGLE (Enhancement #1)
+            // ──────────────────────────────────────────────
+
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIcon = document.getElementById('theme-icon');
+            const themeLabel = document.getElementById('theme-label');
+            const htmlRoot = document.documentElement;
+
+            /**
+             * Apply a theme ('dark' or 'light') to the page.
+             * - Adds/removes .light-theme class on <html>
+             * - Updates the toggle button icon and label text
+             * - Updates the meta theme-color for mobile browsers
+             * - Persists the choice in localStorage
+             */
+            function setTheme(mode) {
+                const isLight = mode === 'light';
+                htmlRoot.classList.toggle('light-theme', isLight);
+
+                // Update toggle button visuals
+                if (themeIcon) themeIcon.textContent = isLight ? '☀️' : '🌙';
+                if (themeLabel) themeLabel.textContent = isLight ? 'Light' : 'Dark';
+
+                // Update browser chrome theme-color
+                const metaTheme = document.querySelector('meta[name="theme-color"]');
+                if (metaTheme) {
+                    metaTheme.setAttribute('content', isLight ? '#f4f7fa' : '#0a0a0a');
+                }
+
+                // Persist preference
+                try {
+                    localStorage.setItem('jahinvegas-theme', mode);
+                } catch (e) {
+                    // localStorage unavailable (private browsing, etc.) — fail silently
+                }
+            }
+
+            /**
+             * Load the saved theme preference, or auto-detect from OS/browser.
+             * Falls back to dark theme if nothing is saved and no OS preference.
+             */
+            function loadTheme() {
+                let savedTheme = null;
+                try {
+                    savedTheme = localStorage.getItem('jahinvegas-theme');
+                } catch (e) {
+                    // ignore
+                }
+
+                if (savedTheme === 'light' || savedTheme === 'dark') {
+                    setTheme(savedTheme);
+                } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+                    // Respect OS-level light mode preference
+                    setTheme('light');
+                } else {
+                    setTheme('dark');
+                }
+            }
+
+            // Toggle on button click
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function() {
+                    const isLight = htmlRoot.classList.contains('light-theme');
+                    setTheme(isLight ? 'dark' : 'light');
+                });
+
+                // Keyboard: also toggle on Enter/Space (built-in for <button>)
+            }
+
+            // Listen for OS theme changes while page is open
+            if (window.matchMedia) {
+                window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+                    // Only auto-switch if user hasn't explicitly saved a preference
+                    let hasSaved = false;
+                    try {
+                        hasSaved = localStorage.getItem('jahinvegas-theme') !== null;
+                    } catch (ex) {}
+                    if (!hasSaved) {
+                        setTheme(e.matches ? 'light' : 'dark');
+                    }
+                });
+            }
+
+            // Initialize theme on page load
+            loadTheme();
+
+            // ──────────────────────────────────────────────
+            // 4. GITHUB API — FETCH ALL REPOSITORIES
+            // ──────────────────────────────────────────────
+
+            const GITHUB_USER = 'jahinvegas';
+            const PER_PAGE = 100;
+
+            const ul = document.getElementById('repo-list');
+            const navCount = document.getElementById('nav-count');
+            const rateLimitWarning = document.getElementById('rate-limit-warning');
+
+            /** Create a "rate limited" warning banner */
+            function showRateLimitWarning(retryAfterSeconds) {
+                if (!rateLimitWarning) return;
+                const msg = document.createTextNode(
+                    `⚠ GitHub API rate limit reached. ` +
+                    (retryAfterSeconds
+                        ? `Retry after ${Math.ceil(retryAfterSeconds / 60)} minutes.`
+                        : `Please wait before refreshing.`)
+                );
+                rateLimitWarning.textContent = '';
+                rateLimitWarning.appendChild(msg);
+                rateLimitWarning.style.display = 'block';
+                rateLimitWarning.style.cssText =
+                    'display:block;background:rgba(255,68,68,0.12);border:1px solid rgba(255,68,68,0.4);' +
+                    'color:#ff6666;padding:0.75rem 1rem;border-radius:8px;margin-top:0.5rem;' +
+                    'font-size:0.75rem;letter-spacing:0.05em;text-align:center;';
+            }
+
+            /** Fetch ALL public repos using paginated API calls */
+            async function fetchAllRepos() {
+                let allRepos = [];
+                let page = 1;
+
+                try {
+                    while (true) {
+                        const url =
+                            `https://api.github.com/users/${GITHUB_USER}/repos?per_page=${PER_PAGE}&page=${page}`;
+                        const res = await fetch(url);
+
+                        if (res.status === 403) {
+                            // Rate limit hit
+                            const retryAfter = res.headers.get('Retry-After');
+                            showRateLimitWarning(retryAfter ? parseInt(retryAfter, 10) : null);
+                            ul.innerHTML =
+                                '<li style="color:#ff4444;text-align:center;letter-spacing:0.1em;">' +
+                                '⚠ GitHub API rate limit exceeded. Try again later.</li>';
+                            navCount.textContent = '⚠ Limited';
+                            return;
+                        }
+
+                        if (!res.ok) {
+                            ul.innerHTML =
+                                '<li style="color:#ff4444;text-align:center;letter-spacing:0.1em;">' +
+                                `Failed to load repositories (HTTP ${res.status}).</li>`;
+                            navCount.textContent = 'Error';
+                            return;
+                        }
+
+                        const batch = await res.json();
+
+                        // Guard: if API returns non-array (e.g. error body)
+                        if (!Array.isArray(batch)) {
+                            ul.innerHTML =
+                                '<li style="color:#ff4444;text-align:center;letter-spacing:0.1em;">' +
+                                'Unexpected response from GitHub API.</li>';
+                            return;
+                        }
+
+                        allRepos = allRepos.concat(batch);
+                        if (batch.length < PER_PAGE) break;
+                        page++;
+                    }
+
+                    // Update badge
+                    navCount.textContent = `${allRepos.length} Repos`;
+
+                    // ── Render the list ──
+                    renderRepoList(allRepos);
+
+                } catch (e) {
+                    console.error('fetchAllRepos error:', e);
+                    ul.innerHTML =
+                        '<li style="color:#ff4444;text-align:center;letter-spacing:0.1em;">' +
+                        '⚠ Network error loading repositories. Check your connection.</li>';
+                    navCount.textContent = 'Offline';
+                }
+            }
+
+            // ──────────────────────────────────────────────
+            // 5. RENDER, SEARCH, FILTER & SORT (Enhancement #2)
+            // ──────────────────────────────────────────────
+
+            /** Master list of repos (kept for client-side filtering) */
+            let masterRepoList = [];
+
+            /** Current sort direction: 1 = ascending, -1 = descending */
+            let sortDirection = -1;
+
+            /**
+             * Escape HTML entities to prevent XSS in repo content
+             * @param {string} str
+             * @returns {string}
+             */
+            function escapeHtml(str) {
+                const div = document.createElement('div');
+                div.textContent = str;
+                return div.innerHTML;
+            }
+
+            /**
+             * Highlight all occurrences of `query` in `text` by wrapping
+             * them in a <span class="search-highlight"> tag.
+             * @param {string} text      - The original text
+             * @param {string} query     - The search string (lowercased)
+             * @returns {string}         - HTML with highlight spans
+             */
+            function highlightText(text, query) {
+                if (!query || !text) return escapeHtml(text || '');
+                const lower = text.toLowerCase();
+                const idx = lower.indexOf(query);
+                if (idx === -1) return escapeHtml(text);
+                const before = escapeHtml(text.slice(0, idx));
+                const match  = escapeHtml(text.slice(idx, idx + query.length));
+                const after  = escapeHtml(text.slice(idx + query.length));
+                return `${before}<span class="search-highlight">${match}</span>${after}`;
+            }
+
+            /**
+             * Get the current active filters (search text + language + sort)
+             * from the DOM controls.
+             */
+            function getFilterState() {
+                const searchInput = document.getElementById('search-input');
+                const langSelect  = document.getElementById('lang-select');
+                const sortSelect  = document.getElementById('sort-select');
+                return {
+                    text:    searchInput ? searchInput.value.trim().toLowerCase() : '',
+                    lang:    langSelect  ? langSelect.value : '',
+                    sortBy:  sortSelect  ? sortSelect.value : 'updated',
+                    dir:     sortDirection
+                };
+            }
+
+            /**
+             * Filter and sort the master repo list according to current controls,
+             * then re-render with highlighted text and result counter update.
+             */
+            function applyFilters() {
+                const state = getFilterState();
+                let results = masterRepoList;
+
+                // ── Text Search (name, description, language) ──
+                if (state.text) {
+                    results = results.filter(repo => {
+                        const name = repo.name.toLowerCase();
+                        const desc = (repo.description || '').toLowerCase();
+                        const lang = (repo.language || '').toLowerCase();
+                        return name.includes(state.text) ||
+                               desc.includes(state.text) ||
+                               lang.includes(state.text);
+                    });
+                }
+
+                // ── Language Filter ──
+                if (state.lang) {
+                    results = results.filter(repo =>
+                        (repo.language || '') === state.lang
+                    );
+                }
+
+                // ── Sort ──
+                results.sort((a, b) => {
+                    let cmp = 0;
+                    switch (state.sortBy) {
+                        case 'name':
+                            cmp = (a.name || '').localeCompare(b.name || '');
+                            break;
+                        case 'stars':
+                            cmp = (a.stargazers_count || 0) - (b.stargazers_count || 0);
+                            break;
+                        case 'forks':
+                            cmp = (a.forks_count || 0) - (b.forks_count || 0);
+                            break;
+                        case 'updated':
+                            cmp = new Date(a.updated_at || 0) - new Date(b.updated_at || 0);
+                            break;
+                    }
+                    return cmp * state.dir;
+                });
+
+                // ── Render ──
+                renderRepoList(results, state.text);
+                updateResultCounter(results.length);
+            }
+
+            /**
+             * Update the result counter display
+             * @param {number} filteredCount
+             */
+            function updateResultCounter(filteredCount) {
+                const counterEl = document.getElementById('result-counter');
+                const totalEl   = document.getElementById('counter-total');
+                if (counterEl) {
+                    counterEl.innerHTML =
+                        `<strong>${filteredCount}</strong> ` +
+                        `<span class="counter-sep">/</span> ` +
+                        `<span id="counter-total">${masterRepoList.length}</span> repos`;
+                }
+                if (totalEl) {
+                    totalEl.textContent = masterRepoList.length;
+                }
+            }
+
+            /**
+             * Build the DOM for a single repository <li>, with optional
+             * search term highlighting on the repo name.
+             * @param {Object} repo      — GitHub API repo object
+             * @param {string} highlight — Lowercased search term to highlight
+             * @returns {HTMLLIElement}
+             */
+            function createRepoItem(repo, highlight) {
+                const li = document.createElement('li');
+                li.setAttribute('role', 'listitem');
+                li.classList.add('repo-item-enter');
+                li.style.cursor = 'pointer';
+
+                // Preview trigger button (top-right, appears on hover)
+                const previewBtn = document.createElement('button');
+                previewBtn.className = 'repo-preview-trigger';
+                previewBtn.textContent = '👁 Preview';
+                previewBtn.setAttribute('aria-label', `Preview ${repo.name}`);
+                previewBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    openPreview(repo);
+                });
+                li.appendChild(previewBtn);
+
+                // Click on the card itself opens preview (but not when clicking links inside)
+                li.addEventListener('click', function(e) {
+                    // Don't open if user clicked on a link or the preview button
+                    const tag = e.target.tagName.toLowerCase();
+                    if (tag === 'a' || tag === 'button') return;
+                    openPreview(repo);
+                });
+
+                // Repo Name (link) — with search highlighting
+                const name = document.createElement('a');
+                name.href = repo.html_url;
+                name.target = '_blank';
+                name.rel = 'noopener noreferrer';
+                name.className = 'repo-name';
+                name.innerHTML = '⬡ ' + highlightText(repo.name, highlight);
+                li.appendChild(name);
+
+                // Description (if available)
+                if (repo.description) {
+                    const desc = document.createElement('div');
+                    desc.className = 'repo-description';
+                    desc.innerHTML = highlightText(repo.description, highlight);
+                    li.appendChild(desc);
+                }
+
+                // URL label
+                const rl = document.createElement('div');
+                rl.className = 'url-label';
+                rl.textContent = '🔗 Repository URL';
+                li.appendChild(rl);
+
+                // URL
+                const ru = document.createElement('a');
+                ru.href = repo.html_url;
+                ru.target = '_blank';
+                ru.rel = 'noopener noreferrer';
+                ru.className = 'repo-url';
+                ru.textContent = repo.html_url;
+                li.appendChild(ru);
+
+                // GitHub Pages URL
+                const pl = document.createElement('div');
+                pl.className = 'url-label';
+                pl.textContent = '🌐 GitHub Pages';
+                li.appendChild(pl);
+
+                const pagesUrl = `https://${GITHUB_USER}.github.io/${repo.name}/`;
+                const pu = document.createElement('a');
+                pu.href = pagesUrl;
+                pu.target = '_blank';
+                pu.rel = 'noopener noreferrer';
+                pu.className = 'repo-url';
+                pu.textContent = pagesUrl;
+                li.appendChild(pu);
+
+                // Stats row
+                const stats = document.createElement('div');
+                stats.className = 'repo-stats';
+
+                // ⭐ Stars
+                const stars = document.createElement('span');
+                stars.innerHTML = '<span class="stat-icon" aria-hidden="true">⭐</span> ' + (repo.stargazers_count || 0);
+                stats.appendChild(stars);
+
+                // 🍴 Forks
+                const forks = document.createElement('span');
+                forks.innerHTML = '<span class="stat-icon" aria-hidden="true">🍴</span> ' + (repo.forks_count || 0);
+                stats.appendChild(forks);
+
+                // 📅 Updated
+                if (repo.updated_at) {
+                    const updated = document.createElement('span');
+                    const dateStr = new Date(repo.updated_at).toLocaleDateString(undefined, {
+                        month: 'short', day: 'numeric', year: 'numeric'
+                    });
+                    updated.innerHTML = '<span class="stat-icon" aria-hidden="true">📅</span> ' + dateStr;
+                    stats.appendChild(updated);
+                }
+
+                // 🔤 Language (with highlight if matched)
+                if (repo.language) {
+                    const lang = document.createElement('span');
+                    lang.style.color = '#aaff33';
+                    lang.innerHTML = '<span class="stat-icon" aria-hidden="true">▣</span> ' +
+                        highlightText(repo.language, highlight);
+                    stats.appendChild(lang);
+                }
+
+                li.appendChild(stats);
+
+                return li;
+            }
+
+            /**
+             * Render the repository list into the DOM.
+             * @param {Array}  repos     — array of GitHub API repo objects
+             * @param {string} highlight — optional search term to highlight
+             */
+            function renderRepoList(repos, highlight) {
+                ul.innerHTML = '';
+
+                if (repos.length === 0) {
+                    // Empty state
+                    const emptyLi = document.createElement('li');
+                    emptyLi.style.cssText =
+                        'background:transparent;text-align:center;padding:2.5rem 1rem;' +
+                        'border:none;box-shadow:none;';
+                    emptyLi.innerHTML =
+                        '<div class="empty-search">' +
+                        '<span class="empty-icon">🔍</span>' +
+                        'No repositories match your filters<br>' +
+                        '<span style="font-size:0.55rem;opacity:0.5;">Try adjusting search or clearing filters</span>' +
+                        '</div>';
+                    ul.appendChild(emptyLi);
+                    return;
+                }
+
+                // Total count banner
+                const banner = document.createElement('li');
+                banner.style.cssText =
+                    'background:rgba(170,255,51,0.07);text-align:center;font-weight:700;' +
+                    'color:#aaff33;font-size:0.85rem;letter-spacing:0.15em;border-color:rgba(170,255,51,0.27);';
+                banner.textContent = `⬡ ${repos.length} Public Repositor${repos.length === 1 ? 'y' : 'ies'} ⬡`;
+                ul.appendChild(banner);
+
+                repos.forEach((repo, idx) => {
+                    const item = createRepoItem(repo, highlight || '');
+                    // Stagger animation delay for a cascading effect
+                    item.style.animationDelay = `${Math.min(idx * 0.03, 0.4)}s`;
+                    ul.appendChild(item);
+                });
+            }
+
+            /**
+             * Rebuild the language filter dropdown with unique languages
+             * from the master repo list.
+             */
+            function populateLanguageFilter() {
+                const langSelect = document.getElementById('lang-select');
+                if (!langSelect) return;
+
+                // Collect unique languages, excluding null
+                const langs = new Set();
+                masterRepoList.forEach(repo => {
+                    if (repo.language) langs.add(repo.language);
+                });
+
+                // Sort alphabetically
+                const sorted = Array.from(langs).sort();
+
+                // Preserve current selection if possible
+                const currentVal = langSelect.value;
+
+                // Keep the "All Languages" option, remove the rest
+                while (langSelect.options.length > 1) {
+                    langSelect.remove(1);
+                }
+
+                sorted.forEach(lang => {
+                    const opt = document.createElement('option');
+                    opt.value = lang;
+                    opt.textContent = lang;
+                    langSelect.appendChild(opt);
+                });
+
+                // Restore selection
+                if (Array.from(langSelect.options).some(o => o.value === currentVal)) {
+                    langSelect.value = currentVal;
+                }
+            }
+
+            // ── Debounce helper ──
+            function debounce(fn, ms) {
+                let timer;
+                return function(...args) {
+                    clearTimeout(timer);
+                    timer = setTimeout(() => fn.apply(this, args), ms);
+                };
+            }
+
+            // ── Bind Controls ──
+            const searchInput = document.getElementById('search-input');
+            const searchClear = document.getElementById('search-clear');
+            const sortSelect  = document.getElementById('sort-select');
+            const sortDirBtn  = document.getElementById('sort-dir-btn');
+            const langSelect  = document.getElementById('lang-select');
+
+            // Search input — debounced to avoid re-render on every keystroke
+            if (searchInput) {
+                searchInput.addEventListener('input', debounce(function() {
+                    applyFilters();
+                }, 150));
+            }
+
+            // Clear button — resets ALL filters to default
+            if (searchClear) {
+                searchClear.addEventListener('click', function() {
+                    if (searchInput) searchInput.value = '';
+                    if (sortSelect) sortSelect.value = 'updated';
+                    if (langSelect) langSelect.value = '';
+                    sortDirection = -1;
+                    if (sortDirBtn) sortDirBtn.textContent = '⬇';
+                    applyFilters();
+                    if (searchInput) searchInput.focus();
+                });
+            }
+
+            // Sort select
+            if (sortSelect) {
+                sortSelect.addEventListener('change', applyFilters);
+            }
+
+            // Sort direction toggle
+            if (sortDirBtn) {
+                sortDirBtn.addEventListener('click', function() {
+                    sortDirection *= -1;
+                    this.textContent = sortDirection === 1 ? '⬆' : '⬇';
+                    this.setAttribute('aria-label',
+                        sortDirection === 1 ? 'Sort ascending' : 'Sort descending');
+                    applyFilters();
+                });
+            }
+
+            // Language filter
+            if (langSelect) {
+                langSelect.addEventListener('change', applyFilters);
+            }
+
+            // ── Keyboard Shortcuts ──
+            document.addEventListener('keydown', function(e) {
+                // Ctrl+/ or Cmd+/ or just / (when not typing in an input)
+                if ((e.ctrlKey || e.metaKey) && e.key === '/') {
+                    e.preventDefault();
+                    if (searchInput) searchInput.focus();
+                } else if (e.key === '/' && !e.ctrlKey && !e.metaKey &&
+                           document.activeElement !== searchInput &&
+                           !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName || '')) {
+                    e.preventDefault();
+                    if (searchInput) searchInput.focus();
+                }
+                // Escape to blur
+                if (e.key === 'Escape' && document.activeElement === searchInput) {
+                    searchInput.blur();
+                }
+            });
+
+            // ── Fetch & Initial Render ──
+            // CRITICAL FIX: Save the ORIGINAL DOM renderer BEFORE overriding.
+            // This avoids infinite recursion (renderRepoList -> applyFilters -> renderRepoList -> ...)
+            const _renderToDOM = renderRepoList;
+
+            // Override to capture data + populate language filter on first fetch
+            renderRepoList = function(repos, highlight) {
+                masterRepoList = repos.slice();
+                if (langSelect && langSelect.options.length <= 1) {
+                    populateLanguageFilter();
+                }
+                applyFilters();
+            };
+
+            // Patch applyFilters to call the ORIGINAL DOM renderer, NOT the override
+            applyFilters = function() {
+                const state = getFilterState();
+                let results = masterRepoList;
+
+                if (state.text) {
+                    results = results.filter(repo => {
+                        const name = repo.name.toLowerCase();
+                        const desc = (repo.description || '').toLowerCase();
+                        const lang = (repo.language || '').toLowerCase();
+                        return name.includes(state.text) ||
+                               desc.includes(state.text) ||
+                               lang.includes(state.text);
+                    });
+                }
+
+                if (state.lang) {
+                    results = results.filter(repo =>
+                        (repo.language || '') === state.lang
+                    );
+                }
+
+                results.sort((a, b) => {
+                    let cmp = 0;
+                    switch (state.sortBy) {
+                        case 'name':
+                            cmp = (a.name || '').localeCompare(b.name || ''); break;
+                        case 'stars':
+                            cmp = (a.stargazers_count || 0) - (b.stargazers_count || 0); break;
+                        case 'forks':
+                            cmp = (a.forks_count || 0) - (b.forks_count || 0); break;
+                        case 'updated':
+                            cmp = new Date(a.updated_at || 0) - new Date(b.updated_at || 0); break;
+                    }
+                    return cmp * state.dir;
+                });
+
+                // Call ORIGINAL render (NO recursion!)
+                _renderToDOM(results, state.text);
+                updateResultCounter(results.length);
+                // Update language chart after rendering (Enhancement #5)
+                // Use setTimeout to let DOM settle first
+                setTimeout(updateLanguageChart, 50);
+            };
+
+            // Start the fetch
+            fetchAllRepos();
+
+            // ──────────────────────────────────────────────
+            // 6. REPO PREVIEW MODAL (Enhancement #3)
+            // ──────────────────────────────────────────────
+
+            const overlay = document.getElementById('preview-overlay');
+            const closeBtn = document.getElementById('preview-close-btn');
+            const previewName = document.getElementById('preview-repo-name');
+            const previewFull = document.getElementById('preview-full-name');
+            const previewDesc = document.getElementById('preview-desc');
+            const previewMeta = document.getElementById('preview-meta');
+            const previewTopicsTags = document.getElementById('preview-topics-tags');
+            const previewReadmeContent = document.getElementById('preview-readme-content');
+            const readmeLoading = document.getElementById('readme-loading');
+            const previewFooter = document.getElementById('preview-footer');
+
+            /** Language color map for dots in meta */
+            const LANG_COLORS = {
+                'JavaScript': '#f1e05a', 'Python': '#3572A5', 'HTML': '#e34c26',
+                'CSS': '#563d7c', 'TypeScript': '#3178c6', 'Java': '#b07219',
+                'C': '#555555', 'C++': '#f34b7d', 'C#': '#178600',
+                'Ruby': '#701516', 'Go': '#00ADD8', 'Rust': '#dea584',
+                'PHP': '#4F5D95', 'Shell': '#89e051', 'Swift': '#ffac45',
+                'Kotlin': '#A97BFF', 'Dart': '#00B4AB', 'Lua': '#000080',
+                'R': '#198CE7', 'Scala': '#c22d40', 'Elixir': '#6e4a7e',
+                'Haskell': '#5e5086', 'Clojure': '#db5855', 'Solidity': '#AA6746',
+                'Vue': '#41b883', 'Svelte': '#ff3e00', 'Astro': '#ff5a03',
+            };
+
+            /** Get a color for a language */
+            function getLangColor(lang) {
+                return LANG_COLORS[lang] || '#aaff33';
+            }
+
+            /** Format a number with K/M suffix */
+            function formatCount(n) {
+                if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
+                if (n >= 1000) return (n / 1000).toFixed(1) + 'K';
+                return n;
+            }
+
+            /**
+             * Open the preview modal for a given repo object.
+             * Fetches README and topics from GitHub API on demand.
+             * @param {Object} repo - GitHub API repo object
+             */
+            function openPreview(repo) {
+                if (!overlay) return;
+
+                // ── Populate header ──
+                if (previewName) previewName.textContent = '⬡ ' + repo.name;
+                if (previewFull) previewFull.textContent = repo.full_name || `${GITHUB_USER}/${repo.name}`;
+
+                // ── Description ──
+                if (previewDesc) {
+                    if (repo.description) {
+                        previewDesc.textContent = repo.description;
+                        previewDesc.style.display = 'block';
+                    } else {
+                        previewDesc.style.display = 'none';
+                    }
+                }
+
+                // ── Meta grid ──
+                if (previewMeta) {
+                    let metaHTML = '';
+
+                    // Stars
+                    metaHTML += '<div class="preview-meta-item">' +
+                        '<div class="meta-value">⭐ ' + formatCount(repo.stargazers_count || 0) + '</div>' +
+                        '<div class="meta-label">Stars</div></div>';
+
+                    // Forks
+                    metaHTML += '<div class="preview-meta-item">' +
+                        '<div class="meta-value">🍴 ' + formatCount(repo.forks_count || 0) + '</div>' +
+                        '<div class="meta-label">Forks</div></div>';
+
+                    // Open Issues
+                    metaHTML += '<div class="preview-meta-item">' +
+                        '<div class="meta-value">❗ ' + formatCount(repo.open_issues_count || 0) + '</div>' +
+                        '<div class="meta-label">Issues</div></div>';
+
+                    // Watchers
+                    metaHTML += '<div class="preview-meta-item">' +
+                        '<div class="meta-value">👁 ' + formatCount(repo.watchers_count || 0) + '</div>' +
+                        '<div class="meta-label">Watchers</div></div>';
+
+                    // Language
+                    if (repo.language) {
+                        const color = getLangColor(repo.language);
+                        metaHTML += '<div class="preview-meta-item meta-language">' +
+                            '<div class="meta-value">' +
+                            '<span class="lang-dot" style="background:' + color + '"></span>' +
+                            escapeHtml(repo.language) + '</div>' +
+                            '<div class="meta-label">Language</div></div>';
+                    }
+
+                    // Created date
+                    if (repo.created_at) {
+                        const created = new Date(repo.created_at).toLocaleDateString(undefined, {
+                            month: 'short', day: 'numeric', year: 'numeric'
+                        });
+                        metaHTML += '<div class="preview-meta-item">' +
+                            '<div class="meta-value">📅 ' + created + '</div>' +
+                            '<div class="meta-label">Created</div></div>';
+                    }
+
+                    previewMeta.innerHTML = metaHTML;
+                }
+
+                // ── Topics ──
+                if (previewTopicsTags) {
+                    // Try to get topics from the repo object first (may not be included in list endpoint)
+                    const topics = repo.topics || [];
+                    if (topics.length > 0) {
+                        previewTopicsTags.innerHTML = topics.map(t =>
+                            '<span class="preview-topic-tag">#' + escapeHtml(t) + '</span>'
+                        ).join('');
+                    } else {
+                        // Fetch topics separately (GitHub includes them as `topics` in full response)
+                        // We'll use the repo object's topics if available, otherwise show placeholder
+                        fetchTopics(repo);
+                    }
+                }
+
+                // ── README ──
+                if (previewReadmeContent && readmeLoading) {
+                    previewReadmeContent.innerHTML = '<span class="readme-placeholder">Fetching README…</span>';
+                    readmeLoading.style.display = 'inline-block';
+                    fetchReadme(repo);
+                }
+
+                // ── Footer links ──
+                if (previewFooter) {
+                    const pagesUrl = `https://${GITHUB_USER}.github.io/${repo.name}/`;
+                    previewFooter.innerHTML =
+                        '<a href="' + escapeHtml(repo.html_url) + '" target="_blank" rel="noopener noreferrer" class="preview-btn-primary">' +
+                        '🔗 View on GitHub</a>' +
+                        '<a href="' + escapeHtml(pagesUrl) + '" target="_blank" rel="noopener noreferrer" class="preview-btn-secondary">' +
+                        '🌐 GitHub Pages</a>';
+                }
+
+                // ── Show ──
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            /**
+             * Fetch repository topics from GitHub API.
+             * Falls back gracefully if API doesn't return them.
+             */
+            async function fetchTopics(repo) {
+                if (!previewTopicsTags) return;
+                try {
+                    const url = `https://api.github.com/repos/${GITHUB_USER}/${repo.name}`;
+                    const res = await fetch(url);
+                    if (res.ok) {
+                        const data = await res.json();
+                        const topics = data.topics || [];
+                        if (topics.length > 0) {
+                            previewTopicsTags.innerHTML = topics.map(t =>
+                                '<span class="preview-topic-tag">#' + escapeHtml(t) + '</span>'
+                            ).join('');
+                        } else {
+                            previewTopicsTags.innerHTML =
+                                '<span style="font-size:0.6rem;color:var(--text-dim);opacity:0.5;">No topics listed</span>';
+                        }
+                    } else {
+                        previewTopicsTags.innerHTML =
+                            '<span style="font-size:0.6rem;color:var(--text-dim);opacity:0.5;">No topics available</span>';
+                    }
+                } catch (e) {
+                    previewTopicsTags.innerHTML =
+                        '<span style="font-size:0.6rem;color:var(--text-dim);opacity:0.5;">Could not load topics</span>';
+                }
+            }
+
+            /**
+             * Fetch the repository README from GitHub API and render it.
+             * The API returns base64-encoded content.
+             */
+            async function fetchReadme(repo) {
+                if (!previewReadmeContent || !readmeLoading) return;
+                try {
+                    const url = `https://api.github.com/repos/${GITHUB_USER}/${repo.name}/readme`;
+                    const res = await fetch(url);
+                    if (res.ok) {
+                        const data = await res.json();
+                        // Content is base64-encoded
+                        if (data.content) {
+                            const decoded = atob(data.content.replace(/\s/g, ''));
+                            // Truncate very long READMEs
+                            const maxLen = 2000;
+                            const displayText = decoded.length > maxLen
+                                ? decoded.slice(0, maxLen) + '\n\n[... README truncated — view on GitHub for full content ...]'
+                                : decoded;
+                            previewReadmeContent.textContent = displayText;
+                        } else {
+                            previewReadmeContent.innerHTML =
+                                '<span class="readme-placeholder">No README content found</span>';
+                        }
+                    } else if (res.status === 404) {
+                        previewReadmeContent.innerHTML =
+                            '<span class="readme-placeholder">📄 No README file for this repository</span>';
+                    } else {
+                        previewReadmeContent.innerHTML =
+                            '<span class="preview-readme-error">⚠ Could not load README (HTTP ' + res.status + ')</span>';
+                    }
+                } catch (e) {
+                    previewReadmeContent.innerHTML =
+                        '<span class="preview-readme-error">⚠ Network error loading README</span>';
+                } finally {
+                    if (readmeLoading) readmeLoading.style.display = 'none';
+                }
+            }
+
+            /**
+             * Close the preview modal with a smooth animation.
+             */
+            function closePreview() {
+                if (!overlay) return;
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+                // Reset README for next open
+                if (previewReadmeContent) {
+                    previewReadmeContent.innerHTML = '<span class="readme-placeholder">—</span>';
+                }
+                if (readmeLoading) readmeLoading.style.display = 'none';
+            }
+
+            // ── Close handlers ──
+
+            // Close button
+            if (closeBtn) {
+                closeBtn.addEventListener('click', closePreview);
+            }
+
+            // Click overlay background (outside modal)
+            if (overlay) {
+                overlay.addEventListener('click', function(e) {
+                    if (e.target === overlay) closePreview();
+                });
+            }
+
+            // Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && overlay && overlay.classList.contains('active')) {
+                    closePreview();
+                }
+            });
+
+            // ──────────────────────────────────────────────
+            // 7. AMBIENT AUDIO ENGINE (Enhancement #4)
+            // ──────────────────────────────────────────────
+            //
+            //  Web Audio API synth that creates a subtle cyberpunk
+            //  ambient drone soundscape. Reacts to mouse movement
+            //  for pitch/filter modulation. User-initiated only!
+            //  Uses: OscillatorNode, BiquadFilterNode, GainNode,
+            //        StereoPannerNode, LFO modulation, noise buffer.
+            // ──────────────────────────────────────────────
+
+            const audioToggle = document.getElementById('audio-toggle');
+            const audioIcon   = document.getElementById('audio-icon');
+            const audioLabel  = document.getElementById('audio-label');
+
+            let audioCtx       = null;
+            let audioNodes     = {};
+            let audioPlaying   = false;
+            let audioMouseX    = 0.5; // normalized mouse X (0-1)
+            let audioMouseY    = 0.5; // normalized mouse Y (0-1)
+            let audioRAF       = null;
+
+            /**
+             * LFO modulation frequency for wobble
+             * @param {number} speed - LFO rate in Hz
+             * @param {number} depth - modulation depth
+             * @returns {object} LFO node connected to nothing
+             */
+            function createLFO(ctx, speed, depth) {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.frequency.value = speed;
+                gain.gain.value = depth;
+                osc.connect(gain);
+                osc.start();
+                return { osc, gain };
+            }
+
+            /**
+             * Generate a white noise buffer for texture
+             * @param {AudioContext} ctx
+             * @param {number} duration - seconds of noise
+             * @returns {AudioBuffer}
+             */
+            function createNoiseBuffer(ctx, duration) {
+                const sr = ctx.sampleRate;
+                const len = sr * duration;
+                const buffer = ctx.createBuffer(1, len, sr);
+                const data = buffer.getChannelData(0);
+                for (let i = 0; i < len; i++) {
+                    data[i] = (Math.random() * 2 - 1) * 0.5;
+                }
+                return buffer;
+            }
+
+            /**
+             * Initialize and start the ambient audio engine.
+             * Creates a layered drone: sub-bass + mid drone + filtered noise.
+             */
+            function startAudio() {
+                if (audioCtx) return; // already initialized
+
+                try {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                } catch (e) {
+                    console.warn('Web Audio API not available');
+                    if (audioIcon) audioIcon.textContent = '❌';
+                    if (audioLabel) audioLabel.textContent = 'N/A';
+                    return;
+                }
+
+                // Master gain (overall volume control)
+                const masterGain = audioCtx.createGain();
+                masterGain.gain.value = 0.15; // quiet ambient
+                masterGain.connect(audioCtx.destination);
+
+                // ── Layer 1: Sub-bass drone (sine wave, low frequency) ──
+                const sub = audioCtx.createOscillator();
+                sub.type = 'sine';
+                sub.frequency.value = 55; // A1
+                const subGain = audioCtx.createGain();
+                subGain.gain.value = 0.12;
+                sub.connect(subGain);
+                subGain.connect(masterGain);
+                sub.start();
+
+                // LFO wobble on sub frequency
+                const subLFO = createLFO(audioCtx, 0.2, 8);
+                subLFO.gain.connect(sub.frequency);
+
+                // ── Layer 2: Mid drone (sawtooth, filtered) ──
+                const mid = audioCtx.createOscillator();
+                mid.type = 'sawtooth';
+                mid.frequency.value = 110; // A2
+                const midGain = audioCtx.createGain();
+                midGain.gain.value = 0.06;
+                const midFilter = audioCtx.createBiquadFilter();
+                midFilter.type = 'lowpass';
+                midFilter.frequency.value = 300;
+                midFilter.Q.value = 2;
+                mid.connect(midFilter);
+                midFilter.connect(midGain);
+                midGain.connect(masterGain);
+                mid.start();
+
+                // LFO on filter cutoff
+                const filterLFO = createLFO(audioCtx, 0.5, 80);
+                filterLFO.gain.connect(midFilter.frequency);
+
+                // ── Layer 3: Filtered noise (atmospheric wash) ──
+                const noiseBuffer = createNoiseBuffer(audioCtx, 4);
+                const noise = audioCtx.createBufferSource();
+                noise.buffer = noiseBuffer;
+                noise.loop = true;
+                const noiseGain = audioCtx.createGain();
+                noiseGain.gain.value = 0.03;
+                const noiseFilter = audioCtx.createBiquadFilter();
+                noiseFilter.type = 'bandpass';
+                noiseFilter.frequency.value = 400;
+                noiseFilter.Q.value = 0.8;
+                noise.connect(noiseFilter);
+                noiseFilter.connect(noiseGain);
+                noiseGain.connect(masterGain);
+                noise.start();
+
+                // ── Layer 4: High shimmer (very quiet sine) ──
+                const shimmer = audioCtx.createOscillator();
+                shimmer.type = 'sine';
+                shimmer.frequency.value = 880 * 1.01; // slightly detuned A5
+                const shimmerGain = audioCtx.createGain();
+                shimmerGain.gain.value = 0.02;
+                const shimmerFilter = audioCtx.createBiquadFilter();
+                shimmerFilter.type = 'highpass';
+                shimmerFilter.frequency.value = 800;
+                const shimmerPan = audioCtx.createStereoPanner();
+                shimmerPan.pan.value = 0.3;
+                shimmer.connect(shimmerFilter);
+                shimmerFilter.connect(shimmerGain);
+                shimmerGain.connect(shimmerPan);
+                shimmerPan.connect(masterGain);
+                shimmer.start();
+
+                // LFO on shimmer pan (slow stereo movement)
+                const panLFO = createLFO(audioCtx, 0.12, 0.4);
+                panLFO.gain.connect(shimmerPan.pan);
+
+                // LFO on shimmer frequency (slow detune)
+                const shimmerLFO = createLFO(audioCtx, 0.08, 15);
+                shimmerLFO.gain.connect(shimmer.frequency);
+
+                // ── Store references for modulation ──
+                audioNodes = {
+                    masterGain,
+                    sub, subGain, subLFO,
+                    mid, midGain, midFilter, filterLFO,
+                    noise, noiseGain, noiseFilter,
+                    shimmer, shimmerGain, shimmerFilter, shimmerLFO,
+                    shimmerPan, panLFO
+                };
+
+                audioPlaying = true;
+                startAudioModulationLoop();
+            }
+
+            /**
+             * Continuously modulate audio parameters based on mouse position.
+             * Runs via requestAnimationFrame.
+             */
+            function startAudioModulationLoop() {
+                function modulate() {
+                    if (!audioPlaying || !audioNodes.masterGain) return;
+
+                    // Mouse X → filter cutoff sweep (200-2000 Hz)
+                    const freq = 200 + audioMouseX * 1800;
+                    if (audioNodes.midFilter) {
+                        audioNodes.midFilter.frequency.value = freq;
+                    }
+                    if (audioNodes.noiseFilter) {
+                        audioNodes.noiseFilter.frequency.value = freq * 0.8;
+                    }
+
+                    // Mouse Y → volume modulation (0.08 - 0.25)
+                    const vol = 0.08 + audioMouseY * 0.17;
+                    if (audioNodes.masterGain) {
+                        audioNodes.masterGain.gain.value = vol;
+                    }
+
+                    // Mouse X+Y → sub oscillator detune
+                    const subDetune = (audioMouseX - 0.5) * 30 + (audioMouseY - 0.5) * 20;
+                    if (audioNodes.sub) {
+                        audioNodes.sub.detune.value = subDetune;
+                    }
+
+                    // Mid oscillator frequency follows mouse
+                    if (audioNodes.mid) {
+                        const midFreq = 80 + audioMouseX * 120 + audioMouseY * 60;
+                        audioNodes.mid.frequency.value = midFreq;
+                    }
+
+                    audioRAF = requestAnimationFrame(modulate);
+                }
+                modulate();
+            }
+
+            /**
+             * Stop the audio engine and clean up all nodes.
+             */
+            function stopAudio() {
+                audioPlaying = false;
+                if (audioRAF) {
+                    cancelAnimationFrame(audioRAF);
+                    audioRAF = null;
+                }
+                if (audioCtx) {
+                    audioCtx.close().catch(() => {});
+                    audioCtx = null;
+                }
+                audioNodes = {};
+            }
+
+            /**
+             * Toggle audio on/off. First click initializes the engine
+             * (required: AudioContext must be created from user gesture).
+             */
+            function toggleAudio() {
+                if (audioPlaying) {
+                    stopAudio();
+                    if (audioIcon) audioIcon.textContent = '🔇';
+                    if (audioLabel) audioLabel.textContent = 'Sound';
+                    if (audioToggle) audioToggle.classList.remove('active');
+                } else {
+                    startAudio();
+                    if (audioIcon) audioIcon.textContent = '🎧';
+                    if (audioLabel) audioLabel.textContent = 'Live';
+                    if (audioToggle) audioToggle.classList.add('active');
+                }
+            }
+
+            // ── Bind audio toggle ──
+            if (audioToggle) {
+                audioToggle.addEventListener('click', toggleAudio);
+            }
+
+            // ── Track mouse for audio modulation ──
+            document.addEventListener('mousemove', function(e) {
+                audioMouseX = Math.min(1, Math.max(0, e.clientX / window.innerWidth));
+                audioMouseY = Math.min(1, Math.max(0, e.clientY / window.innerHeight));
+            });
+
+            // ── Track touch for audio modulation on mobile ──
+            document.addEventListener('touchmove', function(e) {
+                const t = e.touches[0];
+                if (t) {
+                    audioMouseX = Math.min(1, Math.max(0, t.clientX / window.innerWidth));
+                    audioMouseY = Math.min(1, Math.max(0, t.clientY / window.innerHeight));
+                }
+            }, { passive: true });
+
+            // ──────────────────────────────────────────────
+            // 8. LANGUAGE DONUT CHART (Enhancement #5)
+            // ──────────────────────────────────────────────
+            //
+            //  Draws an animated SVG donut chart showing the
+            //  programming language distribution across all
+            //  (or filtered) repositories using <circle> stroke
+            //  segments and a color-coded legend grid.
+            // ──────────────────────────────────────────────
+
+            const donutSvg    = document.getElementById('lang-donut-svg');
+            const donutCount  = document.getElementById('donut-count');
+            const langLegend  = document.getElementById('lang-legend');
+            const chartBody   = document.getElementById('lang-chart-body');
+            const chartSection = document.getElementById('lang-chart-section');
+
+            // Language color map (shared with preview modal LANG_COLORS above)
+            // Extended with more languages for the chart
+            const CHART_LANG_COLORS = {
+                'JavaScript': '#f1e05a', 'Python': '#3572A5', 'HTML': '#e34c26',
+                'CSS': '#563d7c', 'TypeScript': '#3178c6', 'Java': '#b07219',
+                'C': '#555555', 'C++': '#f34b7d', 'C#': '#178600',
+                'Ruby': '#701516', 'Go': '#00ADD8', 'Rust': '#dea584',
+                'PHP': '#4F5D95', 'Shell': '#89e051', 'Swift': '#ffac45',
+                'Kotlin': '#A97BFF', 'Dart': '#00B4AB', 'Lua': '#000080',
+                'R': '#198CE7', 'Scala': '#c22d40', 'Elixir': '#6e4a7e',
+                'Haskell': '#5e5086', 'Clojure': '#db5855', 'Solidity': '#AA6746',
+                'Vue': '#41b883', 'Svelte': '#ff3e00', 'Astro': '#ff5a03',
+                'Markdown': '#083fa1', 'TeX': '#3D6117', 'Dockerfile': '#384d54',
+                'Makefile': '#427819', 'Perl': '#0298c3', 'Julia': '#4063d8',
+                'Zig': '#ec915c', 'Nix': '#7e7eff', 'Crystal': '#000100',
+            };
+
+            /**
+             * Get a deterministic color for a language string.
+             * Falls back to a hash-based hue if not in the map.
+             */
+            function getChartLangColor(lang) {
+                if (CHART_LANG_COLORS[lang]) return CHART_LANG_COLORS[lang];
+                // Generate a color from string hash
+                let hash = 0;
+                for (let i = 0; i < lang.length; i++) {
+                    hash = lang.charCodeAt(i) + ((hash << 5) - hash);
+                }
+                const h = Math.abs(hash) % 360;
+                return `hsl(${h}, 70%, 55%)`;
+            }
+
+            /**
+             * Draw (or redraw) the donut chart and legend for the
+             * given array of repos. Called initially and on filter changes.
+             * @param {Array} repos - Array of GitHub API repo objects
+             */
+            function drawLanguageChart(repos) {
+                if (!donutSvg || !langLegend) return;
+
+                // ── Aggregate language counts ──
+                const langMap = new Map();
+                let totalWithLang = 0;
+
+                repos.forEach(repo => {
+                    const lang = repo.language;
+                    if (lang) {
+                        langMap.set(lang, (langMap.get(lang) || 0) + 1);
+                        totalWithLang++;
+                    }
+                });
+
+                // Update the center count
+                if (donutCount) {
+                    donutCount.textContent = langMap.size;
+                }
+
+                // If no languages, show empty state
+                if (langMap.size === 0) {
+                    donutSvg.innerHTML = '<circle cx="100" cy="100" r="80" fill="none" stroke="rgba(170,255,51,0.06)" stroke-width="28" />';
+                    langLegend.innerHTML = '<div class="lang-chart-empty">No language data to display</div>';
+                    return;
+                }
+
+                // ── Sort languages by count (descending) ──
+                const sorted = Array.from(langMap.entries())
+                    .sort((a, b) => b[1] - a[1]);
+
+                // ── Build SVG segments ──
+                const radius = 80;
+                const circumference = 2 * Math.PI * radius;
+                const total = sorted.reduce((sum, [, count]) => sum + count, 0);
+
+                // For display: limit to top 12, group rest as "Other"
+                const MAX_SEGMENTS = 12;
+                let segments;
+                if (sorted.length > MAX_SEGMENTS) {
+                    const top = sorted.slice(0, MAX_SEGMENTS - 1);
+                    const other = sorted.slice(MAX_SEGMENTS - 1);
+                    const otherCount = other.reduce((sum, [, c]) => sum + c, 0);
+                    segments = [...top, ['Other', otherCount]];
+                } else {
+                    segments = sorted;
+                }
+
+                // Build SVG circles (stroke-dasharray creates the donut segments)
+                let svgContent = '';
+                let cumulativePercent = 0;
+
+                segments.forEach(([lang, count], idx) => {
+                    const percent = count / total;
+                    const dashLen = percent * circumference;
+                    const offset = -cumulativePercent * circumference;
+
+                    const color = lang === 'Other'
+                        ? '#666666'
+                        : getChartLangColor(lang);
+
+                    // Add a small gap between segments (0.3% gap)
+                    const gap = 0.003 * circumference;
+                    const effectiveDash = Math.max(dashLen - gap, 0);
+
+                    svgContent +=
+                        `<circle class="lang-donut-segment" ` +
+                        `cx="100" cy="100" r="${radius}" ` +
+                        `fill="none" stroke="${color}" stroke-width="28" ` +
+                        `stroke-dasharray="${effectiveDash} ${circumference - effectiveDash}" ` +
+                        `stroke-dashoffset="${offset}" ` +
+                        `data-lang="${lang.replace(/"/g, '&quot;')}" ` +
+                        `data-count="${count}" ` +
+                        `title="${lang}: ${count} repo${count !== 1 ? 's' : ''}">` +
+                        `<animate attributeName="opacity" from="0" to="1" ` +
+                        `dur="0.5s" begin="${idx * 0.08}s" fill="freeze" />` +
+                        `</circle>`;
+
+                    cumulativePercent += percent;
+                });
+
+                // Background circle
+                svgContent = `<circle cx="100" cy="100" r="${radius}" fill="none" stroke="rgba(170,255,51,0.06)" stroke-width="28" />` + svgContent;
+
+                donutSvg.innerHTML = svgContent;
+
+                // ── Build legend ──
+                let legendHTML = '';
+                sorted.forEach(([lang, count]) => {
+                    const color = getChartLangColor(lang);
+                    const pct = ((count / total) * 100).toFixed(1);
+                    legendHTML +=
+                        `<div class="lang-legend-item" data-lang="${lang.replace(/"/g, '&quot;')}">` +
+                        `<span class="legend-dot" style="background:${color}"></span>` +
+                        `<span class="legend-name">${escapeHtml(lang)}</span>` +
+                        `<span class="legend-count">${count}</span>` +
+                        `<span class="legend-pct">${pct}%</span>` +
+                        `</div>`;
+                });
+
+                langLegend.innerHTML = legendHTML;
+
+                // ── Hover interaction: highlight corresponding segment ──
+                langLegend.querySelectorAll('.lang-legend-item').forEach(item => {
+                    item.addEventListener('mouseenter', function() {
+                        const lang = this.getAttribute('data-lang');
+                        donutSvg.querySelectorAll('.lang-donut-segment').forEach(seg => {
+                            if (seg.getAttribute('data-lang') === lang) {
+                                seg.style.filter = 'brightness(1.4) drop-shadow(0 0 8px rgba(255,255,255,0.5))';
+                                seg.style.opacity = '1';
+                            } else {
+                                seg.style.opacity = '0.2';
+                            }
+                        });
+                    });
+                    item.addEventListener('mouseleave', function() {
+                        donutSvg.querySelectorAll('.lang-donut-segment').forEach(seg => {
+                            seg.style.filter = '';
+                            seg.style.opacity = '';
+                        });
+                    });
+                });
+
+                // ── Click legend item to filter by language ──
+                langLegend.querySelectorAll('.lang-legend-item').forEach(item => {
+                    item.addEventListener('click', function() {
+                        const lang = this.getAttribute('data-lang');
+                        if (lang === 'Other') return;
+                        const langSelect = document.getElementById('lang-select');
+                        if (langSelect) {
+                            langSelect.value = lang;
+                            // Dispatch change event to trigger filtering
+                            langSelect.dispatchEvent(new Event('change'));
+                        }
+                    });
+                });
+            }
+
+            /**
+             * Update the language chart based on current filtered repos.
+             * Called after every filter/sort change.
+             */
+            function updateLanguageChart() {
+                // Use the already-filtered repos from the DOM
+                // Or fall back to masterRepoList
+                if (masterRepoList.length > 0) {
+                    // Get current filtered view by re-applying the filter logic
+                    const state = getFilterState();
+                    let repos = masterRepoList;
+
+                    if (state.text) {
+                        repos = repos.filter(repo => {
+                            const name = repo.name.toLowerCase();
+                            const desc = (repo.description || '').toLowerCase();
+                            const lang = (repo.language || '').toLowerCase();
+                            return name.includes(state.text) ||
+                                   desc.includes(state.text) ||
+                                   lang.includes(state.text);
+                        });
+                    }
+                    if (state.lang) {
+                        repos = repos.filter(repo =>
+                            (repo.language || '') === state.lang
+                        );
+                    }
+
+                    drawLanguageChart(repos);
+                }
+            }
+
+            // ──────────────────────────────────────────────
+            // 9. PARTICLE SYSTEM
+            // ──────────────────────────────────────────────
+
+            const canvas = document.getElementById('particle-canvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                let W, H;
+                const particles = [];
+                const COUNT = 120;
+                const MAX_R = 3;
+                const MIN_R = 1;
+                const AVOID_DIST = 100;
+
+                /** Resize the canvas to fill the viewport */
+                function resize() {
+                    W = canvas.width = window.innerWidth;
+                    H = canvas.height = window.innerHeight;
+                }
+                window.addEventListener('resize', resize);
+                resize();
+
+                /** A single glowing particle */
+                class Particle {
+                    constructor() {
+                        this.reset();
+                    }
+
+                    /** Randomize position, velocity, radius, and color */
+                    reset() {
+                        this.x = Math.random() * W;
+                        this.y = Math.random() * H;
+                        this.r = Math.random() * (MAX_R - MIN_R) + MIN_R;
+                        this.vx = (Math.random() - 0.5) * 0.3;
+                        this.vy = (Math.random() - 0.5) * 0.3;
+                        this.alpha = Math.random() * 0.6 + 0.4;
+                        this.color = `rgba(170,255,51,${this.alpha.toFixed(2)})`;
+                    }
+
+                    /**
+                     * Update position, bounce off edges, avoid mouse
+                     * @param {Object|null} mouse — { x, y } or null
+                     */
+                    update(mouse) {
+                        this.x += this.vx;
+                        this.y += this.vy;
+
+                        // Bounce off edges
+                        if (this.x < 0 || this.x > W) this.vx *= -1;
+                        if (this.y < 0 || this.y > H) this.vy *= -1;
+
+                        // Mouse avoidance
+                        if (mouse) {
+                            const dx = this.x - mouse.x;
+                            const dy = this.y - mouse.y;
+                            const dist = Math.sqrt(dx * dx + dy * dy);
+                            if (dist < AVOID_DIST) {
+                                const angle = Math.atan2(dy, dx);
+                                const force = ((AVOID_DIST - dist) / AVOID_DIST) * 2;
+                                this.vx += Math.cos(angle) * force;
+                                this.vy += Math.sin(angle) * force;
+                            }
+                        }
+
+                        // Friction
+                        this.vx *= 0.95;
+                        this.vy *= 0.95;
+                    }
+
+                    /** Draw a radial gradient glow at the particle position */
+                    draw() {
+                        const g = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r * 4);
+                        g.addColorStop(0, this.color);
+                        g.addColorStop(1, 'rgba(170,255,51,0)');
+                        ctx.fillStyle = g;
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+
+                // Mouse tracking
+                let mouse = null;
+
+                window.addEventListener('mousemove', e => {
+                    mouse = { x: e.clientX, y: e.clientY };
+                });
+
+                window.addEventListener('mouseout', () => {
+                    mouse = null;
+                });
+
+                // Touch support for mobile
+                window.addEventListener('touchmove', e => {
+                    const t = e.touches[0];
+                    if (t) {
+                        mouse = { x: t.clientX, y: t.clientY };
+                    }
+                }, { passive: true });
+
+                window.addEventListener('touchend', () => {
+                    mouse = null;
+                });
+
+                // Spawn particles
+                for (let i = 0; i < COUNT; i++) {
+                    particles.push(new Particle());
+                }
+
+                /** Animation loop */
+                (function animate() {
+                    ctx.clearRect(0, 0, W, H);
+                    particles.forEach(p => {
+                        p.update(mouse);
+                        p.draw();
+                    });
+                    requestAnimationFrame(animate);
+                })();
+            }
+
+        })();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a16573a3d9d52b5b',t:'MTc4MzI0NDg4Mg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+
+</html>
